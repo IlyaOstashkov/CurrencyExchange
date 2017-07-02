@@ -1,18 +1,11 @@
-//
-//  AppDelegate.m
-//  CurrencyExchange
-//
-//  Created by Илья Осташков on 02.07.17.
-//  Copyright © 2017 Ilya Ostashkov. All rights reserved.
-//
 
-#import "AppDelegate.h"
+#import "OSTAppDelegate.h"
 
-@interface AppDelegate ()
+@interface OSTAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation OSTAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

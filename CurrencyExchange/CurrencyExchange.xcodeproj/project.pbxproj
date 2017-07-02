@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C40A6B581F08F69900ABCDFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C40A6B571F08F69900ABCDFC /* main.m */; };
-		C40A6B5B1F08F69900ABCDFC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C40A6B5A1F08F69900ABCDFC /* AppDelegate.m */; };
-		C40A6B5E1F08F69900ABCDFC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C40A6B5D1F08F69900ABCDFC /* ViewController.m */; };
-		C40A6B611F08F69900ABCDFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40A6B5F1F08F69900ABCDFC /* Main.storyboard */; };
-		C40A6B631F08F69900ABCDFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C40A6B621F08F69900ABCDFC /* Assets.xcassets */; };
-		C40A6B661F08F69900ABCDFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40A6B641F08F69900ABCDFC /* LaunchScreen.storyboard */; };
 		C40A6B711F08F69900ABCDFC /* CurrencyExchangeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C40A6B701F08F69900ABCDFC /* CurrencyExchangeTests.m */; };
 		C40A6B7C1F08F69900ABCDFC /* CurrencyExchangeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C40A6B7B1F08F69900ABCDFC /* CurrencyExchangeUITests.m */; };
+		C40A6B961F08F85E00ABCDFC /* OSTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C40A6B8B1F08F85E00ABCDFC /* OSTAppDelegate.m */; };
+		C40A6B971F08F85E00ABCDFC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C40A6B8D1F08F85E00ABCDFC /* Info.plist */; };
+		C40A6B981F08F85E00ABCDFC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C40A6B8E1F08F85E00ABCDFC /* main.m */; };
+		C40A6B991F08F85E00ABCDFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C40A6B931F08F85E00ABCDFC /* Assets.xcassets */; };
+		C40A6B9A1F08F85E00ABCDFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40A6B951F08F85E00ABCDFC /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,21 +35,18 @@
 
 /* Begin PBXFileReference section */
 		C40A6B531F08F69900ABCDFC /* CurrencyExchange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyExchange.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C40A6B571F08F69900ABCDFC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C40A6B591F08F69900ABCDFC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		C40A6B5A1F08F69900ABCDFC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C40A6B5C1F08F69900ABCDFC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C40A6B5D1F08F69900ABCDFC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		C40A6B601F08F69900ABCDFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C40A6B621F08F69900ABCDFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C40A6B651F08F69900ABCDFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C40A6B671F08F69900ABCDFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C40A6B6C1F08F69900ABCDFC /* CurrencyExchangeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CurrencyExchangeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C40A6B701F08F69900ABCDFC /* CurrencyExchangeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrencyExchangeTests.m; sourceTree = "<group>"; };
 		C40A6B721F08F69900ABCDFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C40A6B771F08F69900ABCDFC /* CurrencyExchangeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CurrencyExchangeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C40A6B7B1F08F69900ABCDFC /* CurrencyExchangeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CurrencyExchangeUITests.m; sourceTree = "<group>"; };
 		C40A6B7D1F08F69900ABCDFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C40A6B8A1F08F85E00ABCDFC /* OSTAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSTAppDelegate.h; sourceTree = "<group>"; };
+		C40A6B8B1F08F85E00ABCDFC /* OSTAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSTAppDelegate.m; sourceTree = "<group>"; };
+		C40A6B8D1F08F85E00ABCDFC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C40A6B8E1F08F85E00ABCDFC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C40A6B931F08F85E00ABCDFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C40A6B951F08F85E00ABCDFC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +77,15 @@
 		C40A6B4A1F08F69900ABCDFC = {
 			isa = PBXGroup;
 			children = (
-				C40A6B551F08F69900ABCDFC /* CurrencyExchange */,
+				C40A6B891F08F85E00ABCDFC /* Application */,
+				C40A6B8F1F08F85E00ABCDFC /* Controllers */,
 				C40A6B6F1F08F69900ABCDFC /* CurrencyExchangeTests */,
 				C40A6B7A1F08F69900ABCDFC /* CurrencyExchangeUITests */,
+				C40A6B901F08F85E00ABCDFC /* Library */,
+				C40A6B911F08F85E00ABCDFC /* Models */,
 				C40A6B541F08F69900ABCDFC /* Products */,
+				C40A6B921F08F85E00ABCDFC /* Resources */,
+				C40A6B941F08F85E00ABCDFC /* Views */,
 			);
 			sourceTree = "<group>";
 		};
@@ -96,30 +97,6 @@
 				C40A6B771F08F69900ABCDFC /* CurrencyExchangeUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C40A6B551F08F69900ABCDFC /* CurrencyExchange */ = {
-			isa = PBXGroup;
-			children = (
-				C40A6B591F08F69900ABCDFC /* AppDelegate.h */,
-				C40A6B5A1F08F69900ABCDFC /* AppDelegate.m */,
-				C40A6B5C1F08F69900ABCDFC /* ViewController.h */,
-				C40A6B5D1F08F69900ABCDFC /* ViewController.m */,
-				C40A6B5F1F08F69900ABCDFC /* Main.storyboard */,
-				C40A6B621F08F69900ABCDFC /* Assets.xcassets */,
-				C40A6B641F08F69900ABCDFC /* LaunchScreen.storyboard */,
-				C40A6B671F08F69900ABCDFC /* Info.plist */,
-				C40A6B561F08F69900ABCDFC /* Supporting Files */,
-			);
-			path = CurrencyExchange;
-			sourceTree = "<group>";
-		};
-		C40A6B561F08F69900ABCDFC /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C40A6B571F08F69900ABCDFC /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		C40A6B6F1F08F69900ABCDFC /* CurrencyExchangeTests */ = {
@@ -138,6 +115,62 @@
 				C40A6B7D1F08F69900ABCDFC /* Info.plist */,
 			);
 			path = CurrencyExchangeUITests;
+			sourceTree = "<group>";
+		};
+		C40A6B891F08F85E00ABCDFC /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				C40A6B8A1F08F85E00ABCDFC /* OSTAppDelegate.h */,
+				C40A6B8B1F08F85E00ABCDFC /* OSTAppDelegate.m */,
+				C40A6B8C1F08F85E00ABCDFC /* Supporting Files */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		C40A6B8C1F08F85E00ABCDFC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C40A6B8D1F08F85E00ABCDFC /* Info.plist */,
+				C40A6B8E1F08F85E00ABCDFC /* main.m */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C40A6B8F1F08F85E00ABCDFC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C40A6B901F08F85E00ABCDFC /* Library */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		C40A6B911F08F85E00ABCDFC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C40A6B921F08F85E00ABCDFC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C40A6B931F08F85E00ABCDFC /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C40A6B941F08F85E00ABCDFC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C40A6B951F08F85E00ABCDFC /* LaunchScreen.storyboard */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,9 +282,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C40A6B661F08F69900ABCDFC /* LaunchScreen.storyboard in Resources */,
-				C40A6B631F08F69900ABCDFC /* Assets.xcassets in Resources */,
-				C40A6B611F08F69900ABCDFC /* Main.storyboard in Resources */,
+				C40A6B9A1F08F85E00ABCDFC /* LaunchScreen.storyboard in Resources */,
+				C40A6B991F08F85E00ABCDFC /* Assets.xcassets in Resources */,
+				C40A6B971F08F85E00ABCDFC /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,9 +309,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C40A6B5E1F08F69900ABCDFC /* ViewController.m in Sources */,
-				C40A6B5B1F08F69900ABCDFC /* AppDelegate.m in Sources */,
-				C40A6B581F08F69900ABCDFC /* main.m in Sources */,
+				C40A6B981F08F85E00ABCDFC /* main.m in Sources */,
+				C40A6B961F08F85E00ABCDFC /* OSTAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,25 +344,6 @@
 			targetProxy = C40A6B781F08F69900ABCDFC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		C40A6B5F1F08F69900ABCDFC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C40A6B601F08F69900ABCDFC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C40A6B641F08F69900ABCDFC /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C40A6B651F08F69900ABCDFC /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C40A6B7E1F08F69900ABCDFC /* Debug */ = {
@@ -430,7 +443,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 756YSDKL4Z;
-				INFOPLIST_FILE = CurrencyExchange/Info.plist;
+				INFOPLIST_FILE = "Application/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ostasoft.CurrencyExchange;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -442,7 +455,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 756YSDKL4Z;
-				INFOPLIST_FILE = CurrencyExchange/Info.plist;
+				INFOPLIST_FILE = "Application/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ostasoft.CurrencyExchange;
 				PRODUCT_NAME = "$(TARGET_NAME)";
