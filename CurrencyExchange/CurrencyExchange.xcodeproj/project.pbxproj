@@ -47,6 +47,7 @@
 		C40A6B8E1F08F85E00ABCDFC /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C40A6B931F08F85E00ABCDFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C40A6B951F08F85E00ABCDFC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C40A6B9B1F08FAC800ABCDFC /* CurrencyExchange-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CurrencyExchange-Prefix.pch"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +133,7 @@
 			children = (
 				C40A6B8D1F08F85E00ABCDFC /* Info.plist */,
 				C40A6B8E1F08F85E00ABCDFC /* main.m */,
+				C40A6B9B1F08FAC800ABCDFC /* CurrencyExchange-Prefix.pch */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -443,6 +445,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 756YSDKL4Z;
+				GCC_PREFIX_HEADER = "Application/Supporting Files/CurrencyExchange-Prefix.pch";
 				INFOPLIST_FILE = "Application/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ostasoft.CurrencyExchange;
@@ -455,6 +458,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 756YSDKL4Z;
+				GCC_PREFIX_HEADER = "Application/Supporting Files/CurrencyExchange-Prefix.pch";
 				INFOPLIST_FILE = "Application/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ostasoft.CurrencyExchange;
@@ -531,6 +535,7 @@
 				C40A6B821F08F69900ABCDFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C40A6B831F08F69900ABCDFC /* Build configuration list for PBXNativeTarget "CurrencyExchangeTests" */ = {
 			isa = XCConfigurationList;
@@ -539,6 +544,7 @@
 				C40A6B851F08F69900ABCDFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C40A6B861F08F69900ABCDFC /* Build configuration list for PBXNativeTarget "CurrencyExchangeUITests" */ = {
 			isa = XCConfigurationList;
@@ -547,6 +553,7 @@
 				C40A6B881F08F69900ABCDFC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

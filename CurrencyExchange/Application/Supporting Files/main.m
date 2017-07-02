@@ -1,5 +1,4 @@
 
-#import <UIKit/UIKit.h>
 #import "OSTAppDelegate.h"
 
 int main(int argc, char * argv[]) {
