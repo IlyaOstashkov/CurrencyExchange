@@ -1,0 +1,22 @@
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '10.3'
+
+def shared_pods
+    pod 'AFNetworking'
+    pod 'MBProgressHUD'
+    pod 'MantleXMLExtension'
+    pod 'Masonry'
+    pod 'LGViews'
+end
+
+target "CurrencyExchange" do
+    shared_pods
+    pod 'Typhoon', '~> 3.5.1'
+end
+
+target "CurrencyExchangeTests" do
+    shared_pods
+    pod 'OCMock'
+end
