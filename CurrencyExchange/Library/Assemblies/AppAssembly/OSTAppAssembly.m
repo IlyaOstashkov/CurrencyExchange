@@ -28,8 +28,8 @@
     return [TyphoonDefinition withClass:[OSTExchangeVC class]
                           configuration:^(TyphoonDefinition *definition)
     {
-//        [definition injectProperty:@selector(hudHelper)
-//                              with:[_helperAssembly hudHelper]];
+        [definition injectProperty:@selector(serverHelper)
+                              with:[_helperAssembly serverHelper]];
     }];
 }
 

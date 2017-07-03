@@ -1,14 +1,11 @@
 
 #import "TyphoonAssembly.h"
 
-@class OSTAppAssembly;
-
-@protocol OSTHudHelper;
+@protocol OSTHudHelper, OSTServerHelper;
 
 @interface OSTHelperAssembly : TyphoonAssembly
 
-@property (nonatomic, strong, readonly) OSTAppAssembly *appAssembly;
-
 - (id<OSTHudHelper>)hudHelper;
+- (id<OSTServerHelper>)serverHelper;
 
 @end

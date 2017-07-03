@@ -21,6 +21,7 @@
 		C48B87421F0907C700E62900 /* OSTExchangeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C48B87401F0907C700E62900 /* OSTExchangeVC.m */; };
 		C48B87431F0907C700E62900 /* OSTExchangeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C48B87411F0907C700E62900 /* OSTExchangeVC.xib */; };
 		C48B87491F0909F900E62900 /* OSTHudHelperImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C48B87481F0909F900E62900 /* OSTHudHelperImpl.m */; };
+		C48B874E1F0A55CA00E62900 /* OSTServerHelperImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C48B874D1F0A55CA00E62900 /* OSTServerHelperImpl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,9 @@
 		C48B87461F0909F900E62900 /* OSTHudHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSTHudHelper.h; sourceTree = "<group>"; };
 		C48B87471F0909F900E62900 /* OSTHudHelperImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSTHudHelperImpl.h; sourceTree = "<group>"; };
 		C48B87481F0909F900E62900 /* OSTHudHelperImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSTHudHelperImpl.m; sourceTree = "<group>"; };
+		C48B874B1F0A55CA00E62900 /* OSTServerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSTServerHelper.h; sourceTree = "<group>"; };
+		C48B874C1F0A55CA00E62900 /* OSTServerHelperImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSTServerHelperImpl.h; sourceTree = "<group>"; };
+		C48B874D1F0A55CA00E62900 /* OSTServerHelperImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSTServerHelperImpl.m; sourceTree = "<group>"; };
 		CD7585DFD03C7BA2D1BD1852 /* Pods-CurrencyExchange.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyExchange.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyExchange/Pods-CurrencyExchange.debug.xcconfig"; sourceTree = "<group>"; };
 		F3441BA2358BCDAE02B5ABD1 /* libPods-CurrencyExchangeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CurrencyExchangeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -257,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				C48B87451F0909F900E62900 /* HudHelper */,
+				C48B874A1F0A55CA00E62900 /* ServerHelper */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -269,6 +274,16 @@
 				C48B87481F0909F900E62900 /* OSTHudHelperImpl.m */,
 			);
 			path = HudHelper;
+			sourceTree = "<group>";
+		};
+		C48B874A1F0A55CA00E62900 /* ServerHelper */ = {
+			isa = PBXGroup;
+			children = (
+				C48B874B1F0A55CA00E62900 /* OSTServerHelper.h */,
+				C48B874C1F0A55CA00E62900 /* OSTServerHelperImpl.h */,
+				C48B874D1F0A55CA00E62900 /* OSTServerHelperImpl.m */,
+			);
+			path = ServerHelper;
 			sourceTree = "<group>";
 		};
 		CBDBCD7DDCB557B2D456CABC /* Frameworks */ = {
@@ -518,6 +533,7 @@
 			files = (
 				C48B87491F0909F900E62900 /* OSTHudHelperImpl.m in Sources */,
 				C48B873D1F09079400E62900 /* OSTHelperAssembly.m in Sources */,
+				C48B874E1F0A55CA00E62900 /* OSTServerHelperImpl.m in Sources */,
 				C40A6B981F08F85E00ABCDFC /* main.m in Sources */,
 				C48B873C1F09079400E62900 /* OSTAppAssembly.m in Sources */,
 				C40A6B961F08F85E00ABCDFC /* OSTAppDelegate.m in Sources */,
