@@ -9,8 +9,6 @@
 
 @implementation OSTAppAssembly
 
-#pragma mark - Private injections -
-
 - (OSTAppDelegate *)appDelegate
 {
     return [TyphoonDefinition withClass:[OSTAppDelegate class]
@@ -18,8 +16,6 @@
     {
         [definition injectProperty:@selector(rootViewController)
                               with:[self exchangeVC]];
-//        [definition injectProperty:@selector(analyticHelper)
-//                              with:[_helperAssembly analyticHelper]];
     }];
 }
 
@@ -28,8 +24,8 @@
     return [TyphoonDefinition withClass:[OSTExchangeVC class]
                           configuration:^(TyphoonDefinition *definition)
     {
-        [definition injectProperty:@selector(serverHelper)
-                              with:[_helperAssembly serverHelper]];
+        [definition injectProperty:@selector(exchangeHelper)
+                              with:[_helperAssembly exchangeHelper]];
     }];
 }
 

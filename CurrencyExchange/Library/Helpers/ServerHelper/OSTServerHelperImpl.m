@@ -22,7 +22,7 @@ NSString * const kOSTUrlExchangeRates = @"http://www.ecb.europa.eu/stats/eurofxr
 
 #pragma mark - OSTAServerHelper protocol -
 
-- (void)getExchangeRatesWithCompletion:(OSTServerHelperArrayCompletionBlock)completion
+- (void)getExchangeRateArrayWithCompletion:(OSTServerHelperArrayCompletion)completion
 {
     if (!completion) {
         return;

@@ -1,7 +1,7 @@
 
 #import "OSTExchangeVC.h"
 // protocols
-#import "OSTServerHelper.h"
+#import "OSTExchangeHelper.h"
 // models
 #import "OSTExchangeRate.h"
 
@@ -14,10 +14,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [_serverHelper getExchangeRatesWithCompletion:^(NSArray *response,
-                                                    NSError *error)
+    
+    [_exchangeHelper getExchangeRateArrayWithCompletion:^(NSArray *rateArray,
+                                                          NSError *error)
     {
-        OSTExchangeRate *exchangeRate = response[2];
+        OSTExchangeRate *exchangeRate = rateArray[5];
         OSTCurrency currency = [exchangeRate currency];
         NSLog(@"%lu", (unsigned long)currency);
     }];
