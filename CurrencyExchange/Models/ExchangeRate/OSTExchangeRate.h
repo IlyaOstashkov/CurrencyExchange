@@ -37,8 +37,8 @@ typedef NS_ENUM(NSUInteger, OSTCurrency)
 
 @interface OSTExchangeRate : MTLModel <MXEXmlSerializing>
 
-@property (strong, nonatomic) NSString *currencyString;
-@property (strong, nonatomic) NSNumber *rate;
+@property (strong, nonatomic, readonly) NSString *currencyString;
+@property (strong, nonatomic, readonly) NSNumber *rate;
 
 - (OSTCurrency)currency;
 

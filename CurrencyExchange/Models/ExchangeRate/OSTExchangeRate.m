@@ -16,44 +16,53 @@
     return @"Cube";
 }
 
+#pragma mark - Public methods
+
 - (OSTCurrency)currency
 {
-    NSDictionary *currencyDict = @{
-                                   @"USD" : @(OSTCurrencyUSD),
-                                   @"JPY" : @(OSTCurrencyJPY),
-                                   @"BGN" : @(OSTCurrencyBGN),
-                                   @"CZK" : @(OSTCurrencyCZK),
-                                   @"DKK" : @(OSTCurrencyDKK),
-                                   @"GBP" : @(OSTCurrencyGBP),
-                                   @"HUF" : @(OSTCurrencyHUF),
-                                   @"PLN" : @(OSTCurrencyPLN),
-                                   @"RON" : @(OSTCurrencyRON),
-                                   @"SEK" : @(OSTCurrencySEK),
-                                   @"NOK" : @(OSTCurrencyNOK),
-                                   @"HRK" : @(OSTCurrencyHRK),
-                                   @"RUB" : @(OSTCurrencyRUB),
-                                   @"TRY" : @(OSTCurrencyTRY),
-                                   @"AUD" : @(OSTCurrencyAUD),
-                                   @"BRL" : @(OSTCurrencyBRL),
-                                   @"CAD" : @(OSTCurrencyCAD),
-                                   @"CNY" : @(OSTCurrencyCNY),
-                                   @"HKD" : @(OSTCurrencyHKD),
-                                   @"IDR" : @(OSTCurrencyIDR),
-                                   @"ILS" : @(OSTCurrencyILS),
-                                   @"INR" : @(OSTCurrencyINR),
-                                   @"KRW" : @(OSTCurrencyKRW),
-                                   @"MXN" : @(OSTCurrencyMXN),
-                                   @"MYR" : @(OSTCurrencyMYR),
-                                   @"NZD" : @(OSTCurrencyNZD),
-                                   @"PHP" : @(OSTCurrencyPHP),
-                                   @"SGD" : @(OSTCurrencySGD),
-                                   @"THB" : @(OSTCurrencyTHB),
-                                   @"ZAR" : @(OSTCurrencyZAR),
-                                   };
     if (!_currencyString.length) {
         return OSTCurrencyUSD; // default value
     }
+    NSDictionary *currencyDict = [OSTExchangeRate currencyDict];
     return [[currencyDict valueForKey:_currencyString] integerValue];
+}
+
+#pragma mark - Private methods -
+
++ (NSDictionary *)currencyDict
+{
+    return @{
+             @"USD" : @(OSTCurrencyUSD),
+             @"JPY" : @(OSTCurrencyJPY),
+             @"BGN" : @(OSTCurrencyBGN),
+             @"CZK" : @(OSTCurrencyCZK),
+             @"DKK" : @(OSTCurrencyDKK),
+             @"GBP" : @(OSTCurrencyGBP),
+             @"HUF" : @(OSTCurrencyHUF),
+             @"PLN" : @(OSTCurrencyPLN),
+             @"RON" : @(OSTCurrencyRON),
+             @"SEK" : @(OSTCurrencySEK),
+             @"NOK" : @(OSTCurrencyNOK),
+             @"HRK" : @(OSTCurrencyHRK),
+             @"RUB" : @(OSTCurrencyRUB),
+             @"TRY" : @(OSTCurrencyTRY),
+             @"AUD" : @(OSTCurrencyAUD),
+             @"BRL" : @(OSTCurrencyBRL),
+             @"CAD" : @(OSTCurrencyCAD),
+             @"CNY" : @(OSTCurrencyCNY),
+             @"HKD" : @(OSTCurrencyHKD),
+             @"IDR" : @(OSTCurrencyIDR),
+             @"ILS" : @(OSTCurrencyILS),
+             @"INR" : @(OSTCurrencyINR),
+             @"KRW" : @(OSTCurrencyKRW),
+             @"MXN" : @(OSTCurrencyMXN),
+             @"MYR" : @(OSTCurrencyMYR),
+             @"NZD" : @(OSTCurrencyNZD),
+             @"PHP" : @(OSTCurrencyPHP),
+             @"SGD" : @(OSTCurrencySGD),
+             @"THB" : @(OSTCurrencyTHB),
+             @"ZAR" : @(OSTCurrencyZAR),
+             };
 }
 
 @end

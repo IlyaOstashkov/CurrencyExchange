@@ -3,6 +3,6 @@
 
 @interface OSTExchangeRateList : MTLModel <MXEXmlSerializing>
 
-@property (strong, nonatomic) NSArray *list;
+@property (strong, nonatomic, readonly) NSArray *list;
 
 @end
