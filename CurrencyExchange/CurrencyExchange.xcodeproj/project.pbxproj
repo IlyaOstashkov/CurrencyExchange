@@ -22,6 +22,8 @@
 		C48B87431F0907C700E62900 /* OSTExchangeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = C48B87411F0907C700E62900 /* OSTExchangeVC.xib */; };
 		C48B87491F0909F900E62900 /* OSTHudHelperImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C48B87481F0909F900E62900 /* OSTHudHelperImpl.m */; };
 		C48B874E1F0A55CA00E62900 /* OSTServerHelperImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C48B874D1F0A55CA00E62900 /* OSTServerHelperImpl.m */; };
+		C48B87521F0A5A6500E62900 /* OSTExchangeRate.m in Sources */ = {isa = PBXBuildFile; fileRef = C48B87511F0A5A6500E62900 /* OSTExchangeRate.m */; };
+		C48B87561F0A5D8B00E62900 /* OSTExchangeRateList.m in Sources */ = {isa = PBXBuildFile; fileRef = C48B87551F0A5D8B00E62900 /* OSTExchangeRateList.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,10 @@
 		C48B874B1F0A55CA00E62900 /* OSTServerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSTServerHelper.h; sourceTree = "<group>"; };
 		C48B874C1F0A55CA00E62900 /* OSTServerHelperImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSTServerHelperImpl.h; sourceTree = "<group>"; };
 		C48B874D1F0A55CA00E62900 /* OSTServerHelperImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSTServerHelperImpl.m; sourceTree = "<group>"; };
+		C48B87501F0A5A6500E62900 /* OSTExchangeRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSTExchangeRate.h; sourceTree = "<group>"; };
+		C48B87511F0A5A6500E62900 /* OSTExchangeRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSTExchangeRate.m; sourceTree = "<group>"; };
+		C48B87541F0A5D8B00E62900 /* OSTExchangeRateList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSTExchangeRateList.h; sourceTree = "<group>"; };
+		C48B87551F0A5D8B00E62900 /* OSTExchangeRateList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSTExchangeRateList.m; sourceTree = "<group>"; };
 		CD7585DFD03C7BA2D1BD1852 /* Pods-CurrencyExchange.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyExchange.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyExchange/Pods-CurrencyExchange.debug.xcconfig"; sourceTree = "<group>"; };
 		F3441BA2358BCDAE02B5ABD1 /* libPods-CurrencyExchangeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CurrencyExchangeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -200,6 +206,8 @@
 		C40A6B911F08F85E00ABCDFC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C48B874F1F0A5A5100E62900 /* ExchangeRate */,
+				C48B87531F0A5D7B00E62900 /* ExchangeRateList */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -284,6 +292,24 @@
 				C48B874D1F0A55CA00E62900 /* OSTServerHelperImpl.m */,
 			);
 			path = ServerHelper;
+			sourceTree = "<group>";
+		};
+		C48B874F1F0A5A5100E62900 /* ExchangeRate */ = {
+			isa = PBXGroup;
+			children = (
+				C48B87501F0A5A6500E62900 /* OSTExchangeRate.h */,
+				C48B87511F0A5A6500E62900 /* OSTExchangeRate.m */,
+			);
+			path = ExchangeRate;
+			sourceTree = "<group>";
+		};
+		C48B87531F0A5D7B00E62900 /* ExchangeRateList */ = {
+			isa = PBXGroup;
+			children = (
+				C48B87541F0A5D8B00E62900 /* OSTExchangeRateList.h */,
+				C48B87551F0A5D8B00E62900 /* OSTExchangeRateList.m */,
+			);
+			path = ExchangeRateList;
 			sourceTree = "<group>";
 		};
 		CBDBCD7DDCB557B2D456CABC /* Frameworks */ = {
@@ -532,11 +558,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C48B87491F0909F900E62900 /* OSTHudHelperImpl.m in Sources */,
+				C48B87521F0A5A6500E62900 /* OSTExchangeRate.m in Sources */,
 				C48B873D1F09079400E62900 /* OSTHelperAssembly.m in Sources */,
 				C48B874E1F0A55CA00E62900 /* OSTServerHelperImpl.m in Sources */,
 				C40A6B981F08F85E00ABCDFC /* main.m in Sources */,
 				C48B873C1F09079400E62900 /* OSTAppAssembly.m in Sources */,
 				C40A6B961F08F85E00ABCDFC /* OSTAppDelegate.m in Sources */,
+				C48B87561F0A5D8B00E62900 /* OSTExchangeRateList.m in Sources */,
 				C48B87421F0907C700E62900 /* OSTExchangeVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,5 +1,7 @@
 
 #import "OSTServerHelperImpl.h"
+// models
+#import "OSTExchangeRateList.h"
 // vendors
 #import "AFNetworkActivityIndicatorManager.h"
 
@@ -12,8 +14,7 @@ NSString * const kOSTUrlExchangeRates = @"http://www.ecb.europa.eu/stats/eurofxr
 {
     self = [super init];
     if (self) {
-        self.responseSerializer = [AFXMLParserResponseSerializer serializer];
-        self.requestSerializer = [AFJSONRequestSerializer serializer];
+        self.responseSerializer = [AFHTTPResponseSerializer serializer];
         [[AFNetworkActivityIndicatorManager sharedManager] setEnabled:YES];
     }
     return self;
@@ -21,20 +22,25 @@ NSString * const kOSTUrlExchangeRates = @"http://www.ecb.europa.eu/stats/eurofxr
 
 #pragma mark - OSTAServerHelper protocol -
 
-- (void)getExchangeRatesWithCompletion:(OSTServerHelperCompletionBlock)completion
+- (void)getExchangeRatesWithCompletion:(OSTServerHelperArrayCompletionBlock)completion
 {
+    if (!completion) {
+        return;
+    }
     [self GET:kOSTUrlExchangeRates
    parameters:nil
      progress:nil
-      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+      success:^(NSURLSessionDataTask * _Nonnull task,
+                id  _Nullable responseObject)
      {
-//         NSError *error;
-//         id response = [MTLJSONAdapter modelOfClass:[OSTAAdmob class]
-//                                 fromJSONDictionary:responseObject
-//                                              error:&error];
-//         completion(response, nil);
+         NSError *error;
+         OSTExchangeRateList *rateList = [MXEXmlAdapter modelOfClass:[OSTExchangeRateList class]
+                                                         fromXmlData:responseObject
+                                                               error:&error];
+         completion(rateList.list, nil);
      }
-      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+      failure:^(NSURLSessionDataTask * _Nullable task,
+                NSError * _Nonnull error)
      {
          completion(nil, error);
      }];

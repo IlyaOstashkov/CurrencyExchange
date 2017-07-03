@@ -1,11 +1,11 @@
 
-typedef void (^OSTServerHelperCompletionBlock)(id response, NSError *error);
+typedef void (^OSTServerHelperArrayCompletionBlock)(NSArray *response, NSError *error);
 
 @protocol OSTServerHelper <NSObject>
 
 /**
  Get current exchange rates
  */
-- (void)getExchangeRatesWithCompletion:(OSTServerHelperCompletionBlock)completion;
+- (void)getExchangeRatesWithCompletion:(OSTServerHelperArrayCompletionBlock)completion;
 
 @end
