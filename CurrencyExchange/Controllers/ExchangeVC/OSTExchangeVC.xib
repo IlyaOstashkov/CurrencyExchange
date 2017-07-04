@@ -11,6 +11,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OSTExchangeVC">
             <connections>
+                <outlet property="activityIndicator" destination="K7V-L9-zrf" id="9Wy-sj-Sa6"/>
+                <outlet property="dimView" destination="x5I-xx-dQb" id="IpX-6Q-PE8"/>
+                <outlet property="exchangeButton" destination="Vn1-z5-KhZ" id="8Fn-Gh-o0t"/>
+                <outlet property="firstCollectionView" destination="GOC-qD-cg7" id="CP2-YT-5nk"/>
+                <outlet property="firstPageControl" destination="zrZ-Mo-GsN" id="s3h-vv-dcT"/>
+                <outlet property="secondCollectionView" destination="3go-cv-vk2" id="Wln-u4-74g"/>
+                <outlet property="secondPageControl" destination="RrM-sk-FNi" id="11e-VL-c23"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,7 +25,79 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <subviews>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="K7V-L9-zrf">
+                    <rect key="frame" x="177" y="29" width="20" height="20"/>
+                </activityIndicatorView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vn1-z5-KhZ">
+                    <rect key="frame" x="263" y="20" width="97" height="39"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <state key="normal" title="Exchange">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="exchangeButtonPressed:" destination="-1" eventType="touchUpInside" id="7gY-dm-bll"/>
+                    </connections>
+                </button>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="GOC-qD-cg7">
+                    <rect key="frame" x="0.0" y="79" width="375" height="160"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="160" id="FHu-24-2aC"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="1ia-Mf-CMf">
+                        <size key="itemSize" width="375" height="160"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="zrZ-Mo-GsN">
+                    <rect key="frame" x="168" y="188" width="39" height="37"/>
+                </pageControl>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x5I-xx-dQb">
+                    <rect key="frame" x="0.0" y="239" width="375" height="428"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="3go-cv-vk2">
+                    <rect key="frame" x="0.0" y="239" width="375" height="160"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="160" id="VxN-5a-JBi"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="72T-Xq-EO1">
+                        <size key="itemSize" width="375" height="160"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="RrM-sk-FNi">
+                    <rect key="frame" x="168" y="348" width="39" height="37"/>
+                </pageControl>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.47058823529411764" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="GOC-qD-cg7" firstAttribute="top" secondItem="Vn1-z5-KhZ" secondAttribute="bottom" constant="20" id="0f1-kc-bKU"/>
+                <constraint firstItem="zrZ-Mo-GsN" firstAttribute="centerX" secondItem="GOC-qD-cg7" secondAttribute="centerX" id="5tL-lq-OgZ"/>
+                <constraint firstItem="3go-cv-vk2" firstAttribute="top" secondItem="GOC-qD-cg7" secondAttribute="bottom" id="65D-to-aef"/>
+                <constraint firstItem="Vn1-z5-KhZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="CKQ-dP-UC1"/>
+                <constraint firstItem="K7V-L9-zrf" firstAttribute="centerY" secondItem="Vn1-z5-KhZ" secondAttribute="centerY" id="Gl7-2S-T6h"/>
+                <constraint firstItem="zrZ-Mo-GsN" firstAttribute="bottom" secondItem="GOC-qD-cg7" secondAttribute="bottom" constant="-14" id="KfH-ZI-qEr"/>
+                <constraint firstItem="RrM-sk-FNi" firstAttribute="centerX" secondItem="3go-cv-vk2" secondAttribute="centerX" id="L0Q-zt-5oL"/>
+                <constraint firstItem="x5I-xx-dQb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NNK-jy-XsZ"/>
+                <constraint firstItem="x5I-xx-dQb" firstAttribute="top" secondItem="3go-cv-vk2" secondAttribute="top" id="W5i-nM-OhV"/>
+                <constraint firstAttribute="trailing" secondItem="Vn1-z5-KhZ" secondAttribute="trailing" constant="15" id="beL-OQ-c6V"/>
+                <constraint firstItem="GOC-qD-cg7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cIc-X9-CMm"/>
+                <constraint firstItem="K7V-L9-zrf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="cqi-u6-B40"/>
+                <constraint firstItem="RrM-sk-FNi" firstAttribute="bottom" secondItem="3go-cv-vk2" secondAttribute="bottom" constant="-14" id="hJb-tz-gjd"/>
+                <constraint firstItem="3go-cv-vk2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="iaW-hW-GYn"/>
+                <constraint firstAttribute="bottom" secondItem="x5I-xx-dQb" secondAttribute="bottom" id="k3J-Xk-mPj"/>
+                <constraint firstAttribute="trailing" secondItem="3go-cv-vk2" secondAttribute="trailing" id="oSN-in-haM"/>
+                <constraint firstAttribute="trailing" secondItem="GOC-qD-cg7" secondAttribute="trailing" id="ope-xP-n2K"/>
+                <constraint firstAttribute="trailing" secondItem="x5I-xx-dQb" secondAttribute="trailing" id="prg-0n-iq3"/>
+            </constraints>
+            <point key="canvasLocation" x="69" y="96"/>
         </view>
     </objects>
 </document>
