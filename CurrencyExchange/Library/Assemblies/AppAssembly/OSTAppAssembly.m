@@ -26,6 +26,8 @@
     {
         [definition injectProperty:@selector(exchangeHelper)
                               with:[_helperAssembly exchangeHelper]];
+        [definition injectProperty:@selector(hudHelper)
+                              with:[_helperAssembly hudHelper]];
     }];
 }
 

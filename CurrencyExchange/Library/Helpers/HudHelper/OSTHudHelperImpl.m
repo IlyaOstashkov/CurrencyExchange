@@ -44,8 +44,8 @@
     {
         case OSTHudTypeError:
         {
-            //TODO: images
-            _currentHUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"cancel_cross"]];
+            _currentHUD.customView = [[UIImageView alloc] initWithImage:
+                                      [UIImage imageNamed:@"common-cross"]];
             _currentHUD.mode = MBProgressHUDModeCustomView;
             [_currentHUD hideAnimated:YES
                            afterDelay:hideAfterDelay];
@@ -54,7 +54,8 @@
             
         case OSTHudTypeSuccess:
         {
-            _currentHUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"accept_check"]];
+            _currentHUD.customView = [[UIImageView alloc] initWithImage:
+                                      [UIImage imageNamed:@"common-accept"]];
             _currentHUD.mode = MBProgressHUDModeCustomView;
             [_currentHUD hideAnimated:YES
                            afterDelay:hideAfterDelay];

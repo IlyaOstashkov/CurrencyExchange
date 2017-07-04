@@ -16,6 +16,7 @@
                 <outlet property="exchangeButton" destination="Vn1-z5-KhZ" id="8Fn-Gh-o0t"/>
                 <outlet property="firstCollectionView" destination="GOC-qD-cg7" id="CP2-YT-5nk"/>
                 <outlet property="firstPageControl" destination="zrZ-Mo-GsN" id="s3h-vv-dcT"/>
+                <outlet property="refreshButton" destination="1PG-oR-csT" id="qym-0b-hIN"/>
                 <outlet property="secondCollectionView" destination="3go-cv-vk2" id="Wln-u4-74g"/>
                 <outlet property="secondPageControl" destination="RrM-sk-FNi" id="11e-VL-c23"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -27,10 +28,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="K7V-L9-zrf">
-                    <rect key="frame" x="177" y="29" width="20" height="20"/>
+                    <rect key="frame" x="177" y="32" width="20" height="20"/>
                 </activityIndicatorView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vn1-z5-KhZ">
-                    <rect key="frame" x="263" y="20" width="97" height="39"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vn1-z5-KhZ">
+                    <rect key="frame" x="240" y="20" width="120" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="gf3-4S-Aro"/>
+                        <constraint firstAttribute="width" constant="120" id="qwl-IW-kha"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                     <state key="normal" title="Exchange">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -40,7 +45,7 @@
                     </connections>
                 </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="GOC-qD-cg7">
-                    <rect key="frame" x="0.0" y="79" width="375" height="160"/>
+                    <rect key="frame" x="0.0" y="80" width="375" height="160"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="160" id="FHu-24-2aC"/>
@@ -53,14 +58,29 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="zrZ-Mo-GsN">
-                    <rect key="frame" x="168" y="188" width="39" height="37"/>
+                    <rect key="frame" x="168" y="189" width="39" height="37"/>
                 </pageControl>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1PG-oR-csT">
+                    <rect key="frame" x="112.5" y="135" width="150" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="2bp-WK-Cv9"/>
+                        <constraint firstAttribute="height" constant="50" id="a5j-iH-s3T"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <state key="normal" title="Refresh">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="exchangeButtonPressed:" destination="-1" eventType="touchUpInside" id="QZL-6g-RRx"/>
+                        <action selector="refreshButtonPressed:" destination="-1" eventType="touchUpInside" id="aGC-j4-bRm"/>
+                    </connections>
+                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x5I-xx-dQb">
-                    <rect key="frame" x="0.0" y="239" width="375" height="428"/>
+                    <rect key="frame" x="0.0" y="240" width="375" height="427"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="3go-cv-vk2">
-                    <rect key="frame" x="0.0" y="239" width="375" height="160"/>
+                    <rect key="frame" x="0.0" y="240" width="375" height="160"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="160" id="VxN-5a-JBi"/>
@@ -73,12 +93,12 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="RrM-sk-FNi">
-                    <rect key="frame" x="168" y="348" width="39" height="37"/>
+                    <rect key="frame" x="168" y="349" width="39" height="37"/>
                 </pageControl>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.47058823529411764" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="GOC-qD-cg7" firstAttribute="top" secondItem="Vn1-z5-KhZ" secondAttribute="bottom" constant="20" id="0f1-kc-bKU"/>
+                <constraint firstItem="GOC-qD-cg7" firstAttribute="top" secondItem="Vn1-z5-KhZ" secondAttribute="bottom" constant="15" id="0f1-kc-bKU"/>
                 <constraint firstItem="zrZ-Mo-GsN" firstAttribute="centerX" secondItem="GOC-qD-cg7" secondAttribute="centerX" id="5tL-lq-OgZ"/>
                 <constraint firstItem="3go-cv-vk2" firstAttribute="top" secondItem="GOC-qD-cg7" secondAttribute="bottom" id="65D-to-aef"/>
                 <constraint firstItem="Vn1-z5-KhZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="CKQ-dP-UC1"/>
@@ -87,12 +107,14 @@
                 <constraint firstItem="RrM-sk-FNi" firstAttribute="centerX" secondItem="3go-cv-vk2" secondAttribute="centerX" id="L0Q-zt-5oL"/>
                 <constraint firstItem="x5I-xx-dQb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NNK-jy-XsZ"/>
                 <constraint firstItem="x5I-xx-dQb" firstAttribute="top" secondItem="3go-cv-vk2" secondAttribute="top" id="W5i-nM-OhV"/>
+                <constraint firstItem="1PG-oR-csT" firstAttribute="centerX" secondItem="GOC-qD-cg7" secondAttribute="centerX" id="XzQ-o6-QtD"/>
                 <constraint firstAttribute="trailing" secondItem="Vn1-z5-KhZ" secondAttribute="trailing" constant="15" id="beL-OQ-c6V"/>
                 <constraint firstItem="GOC-qD-cg7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cIc-X9-CMm"/>
                 <constraint firstItem="K7V-L9-zrf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="cqi-u6-B40"/>
                 <constraint firstItem="RrM-sk-FNi" firstAttribute="bottom" secondItem="3go-cv-vk2" secondAttribute="bottom" constant="-14" id="hJb-tz-gjd"/>
                 <constraint firstItem="3go-cv-vk2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="iaW-hW-GYn"/>
                 <constraint firstAttribute="bottom" secondItem="x5I-xx-dQb" secondAttribute="bottom" id="k3J-Xk-mPj"/>
+                <constraint firstItem="1PG-oR-csT" firstAttribute="centerY" secondItem="GOC-qD-cg7" secondAttribute="centerY" id="lXO-25-CKt"/>
                 <constraint firstAttribute="trailing" secondItem="3go-cv-vk2" secondAttribute="trailing" id="oSN-in-haM"/>
                 <constraint firstAttribute="trailing" secondItem="GOC-qD-cg7" secondAttribute="trailing" id="ope-xP-n2K"/>
                 <constraint firstAttribute="trailing" secondItem="x5I-xx-dQb" secondAttribute="trailing" id="prg-0n-iq3"/>

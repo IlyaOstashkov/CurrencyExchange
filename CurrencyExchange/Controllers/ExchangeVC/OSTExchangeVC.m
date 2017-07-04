@@ -2,6 +2,7 @@
 #import "OSTExchangeVC.h"
 // protocols
 #import "OSTExchangeHelper.h"
+#import "OSTHudHelper.h"
 // models
 #import "OSTExchangeRate.h"
 
@@ -11,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *exchangeButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *firstCollectionView;
 @property (weak, nonatomic) IBOutlet UIPageControl *firstPageControl;
+@property (weak, nonatomic) IBOutlet UIButton *refreshButton;
 @property (weak, nonatomic) IBOutlet UIView *dimView;
 @property (weak, nonatomic) IBOutlet UICollectionView *secondCollectionView;
 @property (weak, nonatomic) IBOutlet UIPageControl *secondPageControl;
@@ -53,13 +55,16 @@
 - (void)requestExchangeRateArray
 {
     [_activityIndicator startAnimating];
+    _refreshButton.hidden = YES;
     [_exchangeHelper getExchangeRateArrayWithCompletion:^(NSArray *rateArray,
                                                           NSError *error)
      {
          [_activityIndicator stopAnimating];
          if (error || !rateArray.count)
          {
-             //TODO: show error hud
+             _refreshButton.hidden = NO;
+             [_hudHelper showWithMessage:@"Could not get exchange rates, try again later"
+                                    type:OSTHudTypeMessage];
          }
          else
          {
@@ -77,6 +82,11 @@
 - (IBAction)exchangeButtonPressed:(UIButton *)sender
 {
     
+}
+
+- (IBAction)refreshButtonPressed:(UIButton *)sender
+{
+    [self requestExchangeRateArray];
 }
 
 @end
