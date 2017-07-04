@@ -19,17 +19,57 @@
 
 @implementation OSTExchangeVC
 
+#pragma mark - View controller lifecycle -
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    [self defaultSetup];
+    [self requestExchangeRateArray];
+}
+
+#pragma mark - Setup methods -
+
+- (void)defaultSetup
+{
+    [self setupContentViewIsReadyForExchange:NO];
+}
+
+- (void)setupContentViewIsReadyForExchange:(BOOL)isReady
+{
+    _exchangeButton.hidden = !isReady;
+    _firstCollectionView.hidden = !isReady;
+    _firstPageControl.hidden = !isReady;
+    _secondCollectionView.hidden = !isReady;
+    _secondPageControl.hidden = !isReady;
+}
+
+#pragma mark - Refresh methods -
+
+
+
+#pragma mark - Server methods -
+
+- (void)requestExchangeRateArray
+{
+    [_activityIndicator startAnimating];
     [_exchangeHelper getExchangeRateArrayWithCompletion:^(NSArray *rateArray,
                                                           NSError *error)
-    {
-        OSTExchangeRate *exchangeRate = rateArray[5];
-        OSTCurrency currency = [exchangeRate currency];
-        NSLog(@"%lu", (unsigned long)currency);
-    }];
+     {
+         [_activityIndicator stopAnimating];
+         if (error || !rateArray.count)
+         {
+             //TODO: show error hud
+         }
+         else
+         {
+             [self setupContentViewIsReadyForExchange:YES];
+             
+             OSTExchangeRate *exchangeRate = rateArray[5];
+             OSTCurrency currency = [exchangeRate currency];
+             NSLog(@"%lu", (unsigned long)currency);
+         }
+     }];
 }
 
 #pragma mark - User interaction -
