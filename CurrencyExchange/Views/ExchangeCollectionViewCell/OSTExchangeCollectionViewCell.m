@@ -3,21 +3,28 @@
 // models
 #import "OSTExchangeRate.h"
 
-@interface OSTExchangeCollectionViewCell ()
+NSString * const kOSTPrefixPlus = @"+ ";
+NSString * const kOSTPrefixMinus = @"- ";
+
+@interface OSTExchangeCollectionViewCell () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *currencyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
 @property (weak, nonatomic) IBOutlet UITextField *valueTextField;
 @property (weak, nonatomic) IBOutlet UILabel *helpLabel;
 
+@property (nonatomic) BOOL isShowPlusPrefix;
+
 @end
 
 @implementation OSTExchangeCollectionViewCell
 
+#pragma mark - View lifecycle -
+
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    // Initialization code
+    _valueTextField.delegate = self;
 }
 
 #pragma mark - Public methods -
@@ -26,18 +33,24 @@
                additionalRate:(OSTExchangeRate *)additionalRate
                   isShowValue:(BOOL)isShowValue
 {
+    self.isShowPlusPrefix = additionalRate ? YES : NO;
+    
     _currencyLabel.text = [mainRate.currencyString uppercaseString];
     
     _valueTextField.enabled = isShowValue;
+    NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
+    _valueTextField.text = [NSString stringWithFormat:@"%@%@", valuePrefix, @534.20]; //for test
     
-    if (mainRate && additionalRate)
+    double mainRateDouble = [mainRate.rate doubleValue];
+    if (additionalRate &&
+        mainRateDouble != 0)
     {
         NSString *rateFormat = @"%@1 = %@%.2f";
-        double rate = [additionalRate.rate doubleValue] / [mainRate.rate doubleValue];
+        double rateDouble = [additionalRate.rate doubleValue] / mainRateDouble;
         _helpLabel.text = [NSString stringWithFormat:rateFormat,
                            [mainRate currencySymbol],
                            [additionalRate currencySymbol],
-                           rate];
+                           rateDouble];
     }
     
     // some animations
@@ -47,6 +60,18 @@
          _valueTextField.alpha = isShowValue ? 1.f : 0;
          _helpLabel.alpha = additionalRate ? 1.f : 0;
      }];
+}
+
+#pragma mark - UITextFieldDelegate -
+
+- (BOOL)textField:(UITextField *)textField
+shouldChangeCharactersInRange:(NSRange)range
+replacementString:(NSString *)string
+{
+    NSString *aNewText = [textField.text stringByReplacingCharactersInRange:range
+                                                                 withString:string];
+    NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
+    return [aNewText hasPrefix:valuePrefix];
 }
 
 @end
