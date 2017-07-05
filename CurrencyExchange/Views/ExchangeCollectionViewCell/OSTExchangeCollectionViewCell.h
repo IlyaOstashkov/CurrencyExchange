@@ -1,4 +1,6 @@
 
+typedef void (^OSTExchangeValueChangedCompletion)(double value);
+
 @class OSTExchangeRate;
 
 @interface OSTExchangeCollectionViewCell : UICollectionViewCell
@@ -8,6 +10,7 @@
  */
 - (void)configureWithMainRate:(OSTExchangeRate *)mainRate
                additionalRate:(OSTExchangeRate *)additionalRate
-                  isShowValue:(BOOL)isShowValue;
+                  isShowValue:(BOOL)isShowValue
+       valueChangedCompletion:(OSTExchangeValueChangedCompletion)valueChangedCompletion;
 
 @end

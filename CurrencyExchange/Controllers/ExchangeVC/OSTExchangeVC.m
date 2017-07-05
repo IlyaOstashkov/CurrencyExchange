@@ -170,13 +170,21 @@
     {
         [cell configureWithMainRate:rate
                      additionalRate:nil
-                        isShowValue:!isEqualCurrencies];
+                        isShowValue:!isEqualCurrencies
+             valueChangedCompletion:^(double value)
+        {
+            //
+        }];
     }
     else if (collectionView == _secondCollectionView)
     {
         [cell configureWithMainRate:rate
                      additionalRate:!isEqualCurrencies ? _selectedFromRate : nil
-                        isShowValue:!isEqualCurrencies];
+                        isShowValue:!isEqualCurrencies
+             valueChangedCompletion:^(double value)
+         {
+             //
+         }];
     }
     
     return cell;
