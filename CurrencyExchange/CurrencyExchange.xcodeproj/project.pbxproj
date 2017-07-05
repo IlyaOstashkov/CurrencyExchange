@@ -25,6 +25,8 @@
 		C48B87521F0A5A6500E62900 /* OSTExchangeRate.m in Sources */ = {isa = PBXBuildFile; fileRef = C48B87511F0A5A6500E62900 /* OSTExchangeRate.m */; };
 		C48B87561F0A5D8B00E62900 /* OSTExchangeRateList.m in Sources */ = {isa = PBXBuildFile; fileRef = C48B87551F0A5D8B00E62900 /* OSTExchangeRateList.m */; };
 		C48B875A1F0AE0D000E62900 /* OSTExchangeHelperImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = C48B87591F0AE0D000E62900 /* OSTExchangeHelperImpl.m */; };
+		C48B87601F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C48B875E1F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.m */; };
+		C48B87611F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C48B875F1F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +85,9 @@
 		C48B87581F0AE0D000E62900 /* OSTExchangeHelperImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSTExchangeHelperImpl.h; sourceTree = "<group>"; };
 		C48B87591F0AE0D000E62900 /* OSTExchangeHelperImpl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSTExchangeHelperImpl.m; sourceTree = "<group>"; };
 		C48B875B1F0AE0DF00E62900 /* OSTExchangeHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OSTExchangeHelper.h; sourceTree = "<group>"; };
+		C48B875D1F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSTExchangeCollectionViewCell.h; sourceTree = "<group>"; };
+		C48B875E1F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSTExchangeCollectionViewCell.m; sourceTree = "<group>"; };
+		C48B875F1F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OSTExchangeCollectionViewCell.xib; sourceTree = "<group>"; };
 		CD7585DFD03C7BA2D1BD1852 /* Pods-CurrencyExchange.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyExchange.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CurrencyExchange/Pods-CurrencyExchange.debug.xcconfig"; sourceTree = "<group>"; };
 		F3441BA2358BCDAE02B5ABD1 /* libPods-CurrencyExchangeTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CurrencyExchangeTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -227,6 +232,7 @@
 		C40A6B941F08F85E00ABCDFC /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C48B875C1F0CDE6300E62900 /* ExchangeCollectionViewCell */,
 				C40A6B951F08F85E00ABCDFC /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -325,6 +331,16 @@
 				C48B87591F0AE0D000E62900 /* OSTExchangeHelperImpl.m */,
 			);
 			path = ExchangeHelper;
+			sourceTree = "<group>";
+		};
+		C48B875C1F0CDE6300E62900 /* ExchangeCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C48B875D1F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.h */,
+				C48B875E1F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.m */,
+				C48B875F1F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.xib */,
+			);
+			path = ExchangeCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		CBDBCD7DDCB557B2D456CABC /* Frameworks */ = {
@@ -453,6 +469,7 @@
 			files = (
 				C48B87431F0907C700E62900 /* OSTExchangeVC.xib in Resources */,
 				C40A6B9A1F08F85E00ABCDFC /* LaunchScreen.storyboard in Resources */,
+				C48B87611F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.xib in Resources */,
 				C40A6B991F08F85E00ABCDFC /* Assets.xcassets in Resources */,
 				C40A6B971F08F85E00ABCDFC /* Info.plist in Resources */,
 			);
@@ -576,6 +593,7 @@
 				C48B875A1F0AE0D000E62900 /* OSTExchangeHelperImpl.m in Sources */,
 				C48B87521F0A5A6500E62900 /* OSTExchangeRate.m in Sources */,
 				C48B873D1F09079400E62900 /* OSTHelperAssembly.m in Sources */,
+				C48B87601F0CDE7F00E62900 /* OSTExchangeCollectionViewCell.m in Sources */,
 				C48B874E1F0A55CA00E62900 /* OSTServerHelperImpl.m in Sources */,
 				C40A6B981F08F85E00ABCDFC /* main.m in Sources */,
 				C48B873C1F09079400E62900 /* OSTAppAssembly.m in Sources */,

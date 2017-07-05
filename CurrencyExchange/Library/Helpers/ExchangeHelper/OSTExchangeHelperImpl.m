@@ -2,43 +2,47 @@
 #import "OSTExchangeHelperImpl.h"
 // protocols
 #import "OSTServerHelper.h"
+// models
+#import "OSTExchangeRateList.h"
 
-NSUInteger const kOSTRequestPerSeconds = 10;
+NSUInteger const kOSTRequestPerSeconds = 30;
 
 @interface OSTExchangeHelperImpl ()
 
-@property (strong, nonatomic) NSArray *rateArray; // last cache of rate array
+@property (strong, nonatomic) OSTExchangeRateList *rateList; // last cache of rate list
 @property (nonatomic) NSUInteger requestTimeCounter;
 
 @end
 
 @implementation OSTExchangeHelperImpl
 
-- (void)getExchangeRateArrayWithCompletion:(OSTExchangeHelperRateArrayCompletion)completion
+#pragma mark - Public methods -
+
+- (void)getExchangeRateListWithCompletion:(OSTExchangeHelperRateListCompletion)completion
 {
-    if (_rateArray.count)
+    if (_rateList.list.count)
     {
         // return last cache
-        completion(_rateArray, nil);
+        completion(_rateList, nil);
     }
     else
     {
         // first request
-        [self requestExchangeRateArrayWithCompletion:completion];
+        [self requestExchangeRateListWithCompletion:completion];
     }
 }
 
 #pragma mark - Server methods -
 
-- (void)requestExchangeRateArrayWithCompletion:(OSTExchangeHelperRateArrayCompletion)completion
+- (void)requestExchangeRateListWithCompletion:(OSTExchangeHelperRateListCompletion)completion
 {
-    [_serverHelper getExchangeRateArrayWithCompletion:^(NSArray *response,
-                                                        NSError *error)
+    [_serverHelper getExchangeRateListWithCompletion:^(OSTExchangeRateList *response,
+                                                       NSError *error)
      {
-         self.rateArray = response;
+         self.rateList = response;
          [self startRequestTimer];
          if (completion) {
-             completion(_rateArray, error);
+             completion(_rateList, error);
          }
      }];
 }
@@ -62,7 +66,7 @@ NSUInteger const kOSTRequestPerSeconds = 10;
     {
         if (_requestTimeCounter == 0)
         {
-            [self requestExchangeRateArrayWithCompletion:nil];
+            [self requestExchangeRateListWithCompletion:nil];
             return;
         }
         self.requestTimeCounter--;

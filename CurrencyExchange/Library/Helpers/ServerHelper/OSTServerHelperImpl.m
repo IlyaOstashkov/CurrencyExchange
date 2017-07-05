@@ -22,7 +22,7 @@ NSString * const kOSTUrlExchangeRates = @"http://www.ecb.europa.eu/stats/eurofxr
 
 #pragma mark - OSTAServerHelper protocol -
 
-- (void)getExchangeRateArrayWithCompletion:(OSTServerHelperArrayCompletion)completion
+- (void)getExchangeRateListWithCompletion:(OSTServerHelperCompletion)completion
 {
     if (!completion) {
         return;
@@ -37,7 +37,7 @@ NSString * const kOSTUrlExchangeRates = @"http://www.ecb.europa.eu/stats/eurofxr
          OSTExchangeRateList *rateList = [MXEXmlAdapter modelOfClass:[OSTExchangeRateList class]
                                                          fromXmlData:responseObject
                                                                error:&error];
-         completion(rateList.list, nil);
+         completion(rateList, nil);
      }
       failure:^(NSURLSessionDataTask * _Nullable task,
                 NSError * _Nonnull error)

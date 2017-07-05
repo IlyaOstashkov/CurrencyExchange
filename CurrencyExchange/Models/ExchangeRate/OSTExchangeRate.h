@@ -3,6 +3,7 @@
 
 typedef NS_ENUM(NSUInteger, OSTCurrency)
 {
+    OSTCurrencyEUR,
     OSTCurrencyUSD,
     OSTCurrencyJPY,
     OSTCurrencyBGN,
@@ -37,8 +38,8 @@ typedef NS_ENUM(NSUInteger, OSTCurrency)
 
 @interface OSTExchangeRate : MTLModel <MXEXmlSerializing>
 
-@property (strong, nonatomic, readonly) NSString *currencyString;
-@property (strong, nonatomic, readonly) NSNumber *rate;
+@property (strong, nonatomic) NSString *currencyString;
+@property (strong, nonatomic) NSNumber *rate;
 
 - (OSTCurrency)currency;
 

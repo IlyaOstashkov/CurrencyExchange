@@ -1,11 +1,13 @@
 
-typedef void (^OSTExchangeHelperRateArrayCompletion)(NSArray *rateArray, NSError *error);
+@class OSTExchangeRateList;
+
+typedef void (^OSTExchangeHelperRateListCompletion)(OSTExchangeRateList *rateList, NSError *error);
 
 @protocol OSTExchangeHelper <NSObject>
 
 /**
- Get current exchange rate array
+ Get current exchange rate list
  */
-- (void)getExchangeRateArrayWithCompletion:(OSTExchangeHelperRateArrayCompletion)completion;
+- (void)getExchangeRateListWithCompletion:(OSTExchangeHelperRateListCompletion)completion;
 
 @end

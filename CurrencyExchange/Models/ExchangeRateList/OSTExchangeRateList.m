@@ -1,7 +1,5 @@
 
 #import "OSTExchangeRateList.h"
-// models
-#import "OSTExchangeRate.h"
 
 @implementation OSTExchangeRateList
 
@@ -21,6 +19,19 @@
 + (NSValueTransformer* _Nonnull)listXmlTransformer
 {
     return [MXEXmlAdapter xmlNodeArrayTransformerWithModelClass:[OSTExchangeRate class]];
+}
+
+#pragma mark - Public methods -
+
+- (OSTExchangeRate *)getExchangeRateWithCurrency:(OSTCurrency)currency
+{
+    for (OSTExchangeRate *rate in _list)
+    {
+        if ([rate currency] == currency) {
+            return rate;
+        }
+    }
+    return nil;
 }
 
 @end

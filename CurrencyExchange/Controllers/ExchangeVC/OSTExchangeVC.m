@@ -5,8 +5,11 @@
 #import "OSTHudHelper.h"
 // models
 #import "OSTExchangeRate.h"
+#import "OSTExchangeRateList.h"
+// views
+#import "OSTExchangeCollectionViewCell.h"
 
-@interface OSTExchangeVC ()
+@interface OSTExchangeVC () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIButton *exchangeButton;
@@ -16,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet UIView *dimView;
 @property (weak, nonatomic) IBOutlet UICollectionView *secondCollectionView;
 @property (weak, nonatomic) IBOutlet UIPageControl *secondPageControl;
+
+@property (strong, nonatomic) NSArray *currencyArray;
+@property (strong, nonatomic) NSMutableArray *exchangeRateArray;
 
 @end
 
@@ -34,7 +40,21 @@
 
 - (void)defaultSetup
 {
+    self.currencyArray = @[@(OSTCurrencyEUR),
+                           @(OSTCurrencyUSD),
+                           @(OSTCurrencyGBP)];
     [self setupContentViewIsReadyForExchange:NO];
+    [self setupCollectionView:_firstCollectionView];
+    [self setupCollectionView:_secondCollectionView];
+}
+
+- (void)setupCollectionView:(UICollectionView *)collectionView
+{
+    NSString *collectionCellId = NSStringFromClass([OSTExchangeCollectionViewCell class]);
+    [collectionView registerNib:[UINib nibWithNibName:collectionCellId bundle:nil]
+     forCellWithReuseIdentifier:collectionCellId];
+    collectionView.delegate = self;
+    collectionView.dataSource = self;
 }
 
 - (void)setupContentViewIsReadyForExchange:(BOOL)isReady
@@ -48,7 +68,11 @@
 
 #pragma mark - Refresh methods -
 
-
+- (void)refreshCollectionViews
+{
+    [_firstCollectionView reloadData];
+    [_secondCollectionView reloadData];
+}
 
 #pragma mark - Server methods -
 
@@ -56,11 +80,11 @@
 {
     [_activityIndicator startAnimating];
     _refreshButton.hidden = YES;
-    [_exchangeHelper getExchangeRateArrayWithCompletion:^(NSArray *rateArray,
-                                                          NSError *error)
+    [_exchangeHelper getExchangeRateListWithCompletion:^(OSTExchangeRateList *rateList,
+                                                         NSError *error)
      {
          [_activityIndicator stopAnimating];
-         if (error || !rateArray.count)
+         if (error || !rateList.list.count)
          {
              _refreshButton.hidden = NO;
              [_hudHelper showWithMessage:@"Could not get exchange rates, try again later"
@@ -69,12 +93,37 @@
          else
          {
              [self setupContentViewIsReadyForExchange:YES];
-             
-             OSTExchangeRate *exchangeRate = rateArray[5];
-             OSTCurrency currency = [exchangeRate currency];
-             NSLog(@"%lu", (unsigned long)currency);
+             [self prepareExchangeRateArrayWithResponse:rateList];
+             [self refreshCollectionViews];
          }
      }];
+}
+
+- (void)prepareExchangeRateArrayWithResponse:(OSTExchangeRateList *)response
+{
+    self.exchangeRateArray = [NSMutableArray new];
+    for (NSNumber *currencyNumber in _currencyArray)
+    {
+        OSTCurrency currency = [currencyNumber integerValue];
+        switch (currency)
+        {
+            case OSTCurrencyEUR:
+            {
+                OSTExchangeRate *eurRate = [OSTExchangeRate new];
+                eurRate.currencyString = @"EUR";
+                eurRate.rate = @1;
+                [_exchangeRateArray addObject:eurRate];
+                break;
+            }
+                
+            default:
+            {
+                OSTExchangeRate *rate = [response getExchangeRateWithCurrency:currency];
+                [_exchangeRateArray addObject:rate];
+                break;
+            }
+        }
+    }
 }
 
 #pragma mark - User interaction -
@@ -87,6 +136,29 @@
 - (IBAction)refreshButtonPressed:(UIButton *)sender
 {
     [self requestExchangeRateArray];
+}
+
+#pragma mark - UICollectionView methods -
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section
+{
+    return _exchangeRateArray.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *cellId = NSStringFromClass([OSTExchangeCollectionViewCell class]);
+    OSTExchangeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId
+                                                                                    forIndexPath:indexPath];
+    [cell configureWithExchangeRate:_exchangeRateArray[indexPath.row]];
+    return cell;
 }
 
 @end

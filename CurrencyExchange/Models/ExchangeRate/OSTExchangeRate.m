@@ -21,7 +21,7 @@
 - (OSTCurrency)currency
 {
     if (!_currencyString.length) {
-        return OSTCurrencyUSD; // default value
+        return OSTCurrencyEUR; // default value
     }
     NSDictionary *currencyDict = [OSTExchangeRate currencyDict];
     return [[currencyDict valueForKey:_currencyString] integerValue];
@@ -32,6 +32,7 @@
 + (NSDictionary *)currencyDict
 {
     return @{
+             @"EUR" : @(OSTCurrencyEUR),
              @"USD" : @(OSTCurrencyUSD),
              @"JPY" : @(OSTCurrencyJPY),
              @"BGN" : @(OSTCurrencyBGN),
