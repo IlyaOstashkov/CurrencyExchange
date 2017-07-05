@@ -9,6 +9,8 @@
 // views
 #import "OSTExchangeCollectionViewCell.h"
 
+NSUInteger const kOSTColletionViewPagesCount = 198;
+
 @interface OSTExchangeVC () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -49,6 +51,7 @@
     [self setupContentViewIsReadyForExchange:NO];
     [self setupCollectionView:_firstCollectionView];
     [self setupCollectionView:_secondCollectionView];
+    [self setupTapGestureRecognizer];
 }
 
 - (void)setupCollectionView:(UICollectionView *)collectionView
@@ -58,6 +61,12 @@
      forCellWithReuseIdentifier:collectionCellId];
     collectionView.delegate = self;
     collectionView.dataSource = self;
+    
+    // have to match currencyArray.firstObject
+    NSUInteger index = kOSTColletionViewPagesCount / 2;
+    // scroll to the middle
+    [self scrollCollectionView:collectionView
+                       toIndex:index];
 }
 
 - (void)setupContentViewIsReadyForExchange:(BOOL)isReady
@@ -67,6 +76,29 @@
     _firstPageControl.hidden = !isReady;
     _secondCollectionView.hidden = !isReady;
     _secondPageControl.hidden = !isReady;
+}
+
+- (void)scrollCollectionView:(UICollectionView *)collectionView
+                     toIndex:(NSUInteger)index
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index
+                                                inSection:0];
+    [collectionView scrollToItemAtIndexPath:indexPath
+                           atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                   animated:NO];
+}
+
+- (NSUInteger)exchangeRateArrayIndexForRow:(NSUInteger)row
+{
+    return row % _exchangeRateArray.count;
+}
+
+- (void)setupTapGestureRecognizer
+{
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                           action:@selector(handleTapFrom:)];
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tapGestureRecognizer];
 }
 
 #pragma mark - Refresh methods -
@@ -145,6 +177,11 @@
     [self requestExchangeRateArray];
 }
 
+- (void)handleTapFrom:(id)sender
+{
+    [self.view endEditing:YES];
+}
+
 #pragma mark - UICollectionView methods -
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -155,7 +192,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-    return _exchangeRateArray.count;
+    return kOSTColletionViewPagesCount;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -164,7 +201,7 @@
     NSString *cellId = NSStringFromClass([OSTExchangeCollectionViewCell class]);
     OSTExchangeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId
                                                                                     forIndexPath:indexPath];
-    OSTExchangeRate *rate = _exchangeRateArray[indexPath.row];
+    OSTExchangeRate *rate = _exchangeRateArray[[self exchangeRateArrayIndexForRow:indexPath.row]];
     BOOL isEqualCurrencies = [_selectedFromRate currency] == [_selectedToRate currency];
     if (collectionView == _firstCollectionView)
     {
@@ -195,7 +232,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSInteger currentIndex = scrollView.contentOffset.x / scrollView.frame.size.width + 0.5;
-    NSLog(@"page = %ld", (long)currentIndex);
+    currentIndex = [self exchangeRateArrayIndexForRow:currentIndex];
     if (scrollView == _firstCollectionView)
     {
         _firstPageControl.currentPage = currentIndex;

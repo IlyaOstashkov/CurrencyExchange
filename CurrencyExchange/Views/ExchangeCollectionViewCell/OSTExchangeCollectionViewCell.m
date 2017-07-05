@@ -29,11 +29,7 @@ NSString * const kOSTDot = @".";
 {
     [super awakeFromNib];
     _valueTextField.delegate = self;
-    
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                           action:@selector(handleTapFrom:)];
-    tapGestureRecognizer.cancelsTouchesInView = NO;
-    [self addGestureRecognizer:tapGestureRecognizer];
+    [self setupTapGestureRecognizer];
 }
 
 - (void)dealloc
@@ -76,6 +72,16 @@ NSString * const kOSTDot = @".";
          _valueTextField.alpha = isShowValue ? 1.f : 0;
          _helpLabel.alpha = additionalRate ? 1.f : 0;
      }];
+}
+
+#pragma mark - Setup methods -
+
+- (void)setupTapGestureRecognizer
+{
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                           action:@selector(handleTapFrom:)];
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+    [self addGestureRecognizer:tapGestureRecognizer];
 }
 
 #pragma mark - User interaction -
@@ -152,7 +158,7 @@ replacementString:(NSString *)string
     text = [text stringByReplacingOccurrencesOfString:kOSTComma
                                            withString:kOSTDot];
     
-    if ([text hasSuffix:@"."]) {
+    if ([text hasSuffix:kOSTDot]) {
         text = [text substringToIndex:text.length - 1];
     }
     
