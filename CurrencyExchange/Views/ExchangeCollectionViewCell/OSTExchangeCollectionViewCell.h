@@ -4,8 +4,10 @@
 @interface OSTExchangeCollectionViewCell : UICollectionViewCell
 
 /**
- Configure cell with exchange rate
+ Configure cell
  */
-- (void)configureWithExchangeRate:(OSTExchangeRate *)exchangeRate;
+- (void)configureWithMainRate:(OSTExchangeRate *)mainRate
+               additionalRate:(OSTExchangeRate *)additionalRate
+                  isShowValue:(BOOL)isShowValue;
 
 @end

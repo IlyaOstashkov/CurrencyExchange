@@ -42,5 +42,6 @@ typedef NS_ENUM(NSUInteger, OSTCurrency)
 @property (strong, nonatomic) NSNumber *rate;
 
 - (OSTCurrency)currency;
+- (NSString *)currencySymbol;
 
 @end

@@ -62,7 +62,7 @@
             <connections>
                 <outlet property="balanceLabel" destination="zLI-BM-GVh" id="d8V-id-g0X"/>
                 <outlet property="currencyLabel" destination="nQx-mn-jHt" id="36l-nT-5y1"/>
-                <outlet property="exchangeRateLabel" destination="u6R-mI-GRm" id="866-qK-09v"/>
+                <outlet property="helpLabel" destination="u6R-mI-GRm" id="CCZ-wN-0Fo"/>
                 <outlet property="valueTextField" destination="c01-4O-fsg" id="y5W-N1-A0c"/>
             </connections>
             <point key="canvasLocation" x="-25" y="-49"/>

@@ -27,6 +27,13 @@
     return [[currencyDict valueForKey:_currencyString] integerValue];
 }
 
+- (NSString *)currencySymbol
+{
+    NSDictionary *currencySymbolDict = [OSTExchangeRate currencySymbolDict];
+    NSString *symbol = [currencySymbolDict objectForKey:@([self currency])];
+    return symbol ?: @"";
+}
+
 #pragma mark - Private methods -
 
 + (NSDictionary *)currencyDict
@@ -63,6 +70,15 @@
              @"SGD" : @(OSTCurrencySGD),
              @"THB" : @(OSTCurrencyTHB),
              @"ZAR" : @(OSTCurrencyZAR),
+             };
+}
+
++ (NSDictionary *)currencySymbolDict
+{
+    return @{
+             @(OSTCurrencyEUR) : @"€",
+             @(OSTCurrencyUSD) : @"$",
+             @(OSTCurrencyGBP) : @"£"
              };
 }
 

@@ -23,6 +23,9 @@
 @property (strong, nonatomic) NSArray *currencyArray;
 @property (strong, nonatomic) NSMutableArray *exchangeRateArray;
 
+@property (strong, nonatomic) OSTExchangeRate *selectedFromRate;
+@property (strong, nonatomic) OSTExchangeRate *selectedToRate;
+
 @end
 
 @implementation OSTExchangeVC
@@ -124,6 +127,10 @@
             }
         }
     }
+    
+    // by default
+    self.selectedFromRate = _exchangeRateArray.firstObject;
+    self.selectedToRate = _exchangeRateArray.firstObject;
 }
 
 #pragma mark - User interaction -
@@ -157,8 +164,41 @@
     NSString *cellId = NSStringFromClass([OSTExchangeCollectionViewCell class]);
     OSTExchangeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId
                                                                                     forIndexPath:indexPath];
-    [cell configureWithExchangeRate:_exchangeRateArray[indexPath.row]];
+    OSTExchangeRate *rate = _exchangeRateArray[indexPath.row];
+    BOOL isEqualCurrencies = [_selectedFromRate currency] == [_selectedToRate currency];
+    if (collectionView == _firstCollectionView)
+    {
+        [cell configureWithMainRate:rate
+                     additionalRate:nil
+                        isShowValue:!isEqualCurrencies];
+    }
+    else if (collectionView == _secondCollectionView)
+    {
+        [cell configureWithMainRate:rate
+                     additionalRate:!isEqualCurrencies ? _selectedFromRate : nil
+                        isShowValue:!isEqualCurrencies];
+    }
+    
     return cell;
+}
+
+#pragma mark - UIScrollVewDelegate -
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSInteger currentIndex = scrollView.contentOffset.x / scrollView.frame.size.width + 0.5;
+    NSLog(@"page = %ld", (long)currentIndex);
+    if (scrollView == _firstCollectionView)
+    {
+        _firstPageControl.currentPage = currentIndex;
+        self.selectedFromRate = _exchangeRateArray[currentIndex];
+    }
+    else if (scrollView == _secondCollectionView)
+    {
+        _secondPageControl.currentPage = currentIndex;
+        self.selectedToRate = _exchangeRateArray[currentIndex];
+    }
+    [self refreshCollectionViews];
 }
 
 @end

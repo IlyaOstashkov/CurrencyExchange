@@ -8,7 +8,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *currencyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
 @property (weak, nonatomic) IBOutlet UITextField *valueTextField;
-@property (weak, nonatomic) IBOutlet UILabel *exchangeRateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *helpLabel;
 
 @end
 
@@ -20,9 +20,32 @@
     // Initialization code
 }
 
-- (void)configureWithExchangeRate:(OSTExchangeRate *)exchangeRate
+#pragma mark - Public methods -
+
+- (void)configureWithMainRate:(OSTExchangeRate *)mainRate
+               additionalRate:(OSTExchangeRate *)additionalRate
+                  isShowValue:(BOOL)isShowValue
 {
-    _currencyLabel.text = [exchangeRate.currencyString uppercaseString];
+    _currencyLabel.text = [mainRate.currencyString uppercaseString];
+    
+    _valueTextField.enabled = isShowValue;
+    
+    if (additionalRate)
+    {
+        NSString *rateFormat = @"%@1 = %@%.2f";
+        _helpLabel.text = [NSString stringWithFormat:rateFormat,
+                           [mainRate currencySymbol],
+                           [additionalRate currencySymbol],
+                           0.69];// to test
+    }
+    
+    // some animations
+    [UIView animateWithDuration:0.2
+                     animations:^
+     {
+         _valueTextField.alpha = isShowValue ? 1.f : 0;
+         _helpLabel.alpha = additionalRate ? 1.f : 0;
+     }];
 }
 
 @end
