@@ -30,13 +30,14 @@
     
     _valueTextField.enabled = isShowValue;
     
-    if (additionalRate)
+    if (mainRate && additionalRate)
     {
         NSString *rateFormat = @"%@1 = %@%.2f";
+        double rate = [additionalRate.rate doubleValue] / [mainRate.rate doubleValue];
         _helpLabel.text = [NSString stringWithFormat:rateFormat,
                            [mainRate currencySymbol],
                            [additionalRate currencySymbol],
-                           0.69];// to test
+                           rate];
     }
     
     // some animations
