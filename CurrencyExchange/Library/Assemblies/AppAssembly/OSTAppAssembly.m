@@ -16,6 +16,8 @@
     {
         [definition injectProperty:@selector(rootViewController)
                               with:[self exchangeVC]];
+        [definition injectProperty:@selector(securityHelper)
+                              with:[_helperAssembly securityHelper]];
     }];
 }
 
@@ -28,6 +30,8 @@
                               with:[_helperAssembly serverHelper]];
         [definition injectProperty:@selector(hudHelper)
                               with:[_helperAssembly hudHelper]];
+        [definition injectProperty:@selector(securityHelper)
+                              with:[_helperAssembly securityHelper]];
     }];
 }
 

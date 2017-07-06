@@ -3,6 +3,7 @@
 // protocols
 #import "OSTServerHelper.h"
 #import "OSTHudHelper.h"
+#import "OSTSecurityHelper.h"
 // models
 #import "OSTExchangeRate.h"
 #import "OSTExchangeRateList.h"

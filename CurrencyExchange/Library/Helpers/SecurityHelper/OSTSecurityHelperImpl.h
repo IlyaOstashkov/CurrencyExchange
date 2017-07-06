@@ -1,0 +1,4 @@
+
+@interface OSTSecurityHelperImpl : NSObject
+
+@end

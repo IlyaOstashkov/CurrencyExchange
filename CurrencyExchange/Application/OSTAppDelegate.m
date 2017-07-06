@@ -1,11 +1,15 @@
 
 #import "OSTAppDelegate.h"
+// protocols
+#import "OSTSecurityHelper.h"
 
 @interface OSTAppDelegate ()
 
 @end
 
 @implementation OSTAppDelegate
+
+#pragma mark - Application lifecycle -
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -15,6 +19,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     self.window.rootViewController = self.rootViewController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    [self setupUserAccountsIfNeeded];
     
     return YES;
 }
@@ -51,5 +57,26 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+#pragma mark - Setup methods -
+
+- (void)setupUserAccountsIfNeeded
+{
+    [self setupUserAccountWithKey:kOSTSecureKeyEurAccount
+                        withValue:100.f];
+    [self setupUserAccountWithKey:kOSTSecureKeyUsdAccount
+                        withValue:100.f];
+    [self setupUserAccountWithKey:kOSTSecureKeyGbpAccount
+                        withValue:100.f];
+}
+
+- (void)setupUserAccountWithKey:(NSString *)key
+                      withValue:(double)value
+{
+    NSString *eurAccount = [_securityHelper stringForKey:key];
+    if (!eurAccount.length) {
+        [_securityHelper saveString:[NSString stringWithFormat:@"%f", value]
+                             forKey:key];
+    }
+}
 
 @end
