@@ -59,10 +59,10 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
     
     _accountLabel.text = [NSString stringWithFormat:@"You have %@%.2f",
                           [mainRate currencySymbol], account];
-    BOOL isEnough = additionalRate || account >= value;
-    _accountLabel.textColor = isEnough ? [UIColor whiteColor] : [UIColor redColor];
-    _accountLabel.alpha = isEnough ? .7f : 1.f;
-    if (!isEnough) {
+    BOOL isEnoughMoney = additionalRate || account >= value;
+    _accountLabel.textColor = isEnoughMoney ? [UIColor whiteColor] : [UIColor redColor];
+    _accountLabel.alpha = isEnoughMoney ? .7f : 1.f;
+    if (!isEnoughMoney) {
         [self animateAccountLabel];
     }
     

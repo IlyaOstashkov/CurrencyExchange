@@ -46,6 +46,7 @@ double const kOSTDefaultValueToExchange = 10;
 {
     [super viewDidLoad];
     [self defaultSetup];
+    [self refreshExchangeButton];
     [self requestExchangeRateArrayIsFirstTime:YES];
 }
 
@@ -133,13 +134,11 @@ double const kOSTDefaultValueToExchange = 10;
     }
 }
 
-#pragma mark - Logic methods -
-
-- (void)exchangeFromFirstToSecond:(BOOL)fromFirstToSecond
+- (void)refreshContentViewWithDirectExchange:(BOOL)isDirectExchange
 {
     double fromRate = [_selectedFromRate.rate doubleValue];
     double toRate = [_selectedToRate.rate doubleValue];
-    if (fromFirstToSecond)
+    if (isDirectExchange)
     {
         double fromValue = [_selectedFromValue doubleValue];
         double toValue = toRate * fromValue / fromRate;
@@ -152,6 +151,21 @@ double const kOSTDefaultValueToExchange = 10;
         self.selectedFromValue = @(fromValue);
     }
     [self refreshCollectionViews];
+    [self refreshExchangeButton];
+}
+
+- (void)refreshExchangeButton
+{
+    _exchangeButton.alpha = [self isExchangeAvailable] ? 1.f : .7f;
+}
+
+- (BOOL)isExchangeAvailable
+{
+    OSTCurrency currency = [_selectedFromRate currency];
+    double account = [self getUserAccountWithCurrency:currency];
+    double fromValue = [_selectedFromValue doubleValue];
+    BOOL isEqualCurrencies = [_selectedFromRate currency] == [_selectedToRate currency];
+    return account >= fromValue && !isEqualCurrencies;
 }
 
 #pragma mark - Server methods -
@@ -185,7 +199,7 @@ double const kOSTDefaultValueToExchange = 10;
                  self.selectedFromValue = @(kOSTDefaultValueToExchange);
                  self.selectedToRate = _selectedFromRate;
              }
-             [self exchangeFromFirstToSecond:YES];
+             [self refreshContentViewWithDirectExchange:YES];
          }
      }];
 }
@@ -325,7 +339,7 @@ double const kOSTDefaultValueToExchange = 10;
         {
             weakSelf.selectedFromValue = @(value);
             weakSelf.canRefreshColletionViews = YES;
-            [weakSelf exchangeFromFirstToSecond:YES];
+            [weakSelf refreshContentViewWithDirectExchange:YES];
         }];
     }
     else if (collectionView == _secondCollectionView)
@@ -343,7 +357,7 @@ double const kOSTDefaultValueToExchange = 10;
          {
              weakSelf.selectedToValue = @(value);
              weakSelf.canRefreshColletionViews = YES;
-             [weakSelf exchangeFromFirstToSecond:NO];
+             [weakSelf refreshContentViewWithDirectExchange:NO];
          }];
     }
     
@@ -368,7 +382,7 @@ double const kOSTDefaultValueToExchange = 10;
         self.selectedToRate = _exchangeRateArray[currentIndex];
         self.selectedToValue = @(kOSTDefaultValueToExchange);
     }
-    [self exchangeFromFirstToSecond:YES];
+    [self refreshContentViewWithDirectExchange:YES];
 }
 
 @end
