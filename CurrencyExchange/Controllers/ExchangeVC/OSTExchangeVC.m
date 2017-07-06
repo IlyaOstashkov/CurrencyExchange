@@ -173,12 +173,12 @@ double const kOSTDefaultValueToExchange = 10;
 
 - (void)refreshRateLabel
 {
+    double fromRate = [_selectedFromRate.rate doubleValue];
     BOOL isEqualCurrencies = [self isEqualCurrencies];
-    if (!isEqualCurrencies)
+    if (!isEqualCurrencies && fromRate != 0)
     {
-        double fromValue = [_selectedFromValue doubleValue];
-        double toValue = [_selectedToValue doubleValue];
-        double rate = toValue / fromValue;
+        double toRate = [_selectedToRate.rate doubleValue];
+        double rate = toRate / fromRate;
         double rateIntegralPart;
         double rateFractionalPart = modf(rate, &rateIntegralPart);
         NSString *rateFormat = rateFractionalPart == 0 ? @"%@%.0f" : @"%@%.2f";
@@ -193,7 +193,7 @@ double const kOSTDefaultValueToExchange = 10;
     
     [UIView animateWithDuration:0.2
                      animations:^{
-         _rateLabel.alpha = !isEqualCurrencies ? 1.f : 0;
+         _rateLabel.alpha = !isEqualCurrencies != 0 ? 1.f : 0;
      }];
 }
 
