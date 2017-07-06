@@ -17,6 +17,7 @@ double const kOSTDefaultValueToExchange = 10;
 @interface OSTExchangeVC () <UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *rateLabel;
 @property (weak, nonatomic) IBOutlet UIButton *exchangeButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *firstCollectionView;
 @property (weak, nonatomic) IBOutlet UIPageControl *firstPageControl;
@@ -45,6 +46,7 @@ double const kOSTDefaultValueToExchange = 10;
 {
     [super viewDidLoad];
     [self defaultSetup];
+    [self refreshRateLabel];
     [self refreshExchangeButton];
     [self requestExchangeRateArrayIsFirstTime:YES];
 }
@@ -62,11 +64,21 @@ double const kOSTDefaultValueToExchange = 10;
     self.currencyArray = @[@(OSTCurrencyEUR),
                            @(OSTCurrencyUSD),
                            @(OSTCurrencyGBP)];
+    [self setupRateLabel];
     [self setupContentViewIsReadyForExchange:NO];
     [self setupCollectionView:_firstCollectionView];
     [self setupCollectionView:_secondCollectionView];
     self.canRefreshColletionViews = YES;
     [self setupTapGestureRecognizer];
+}
+
+- (void)setupRateLabel
+{
+    UILabel *label = _rateLabel;
+    label.layer.cornerRadius = 10.f;
+    label.layer.borderWidth = 1.f;
+    label.layer.borderColor = [[UIColor whiteColor] colorWithAlphaComponent:.5f].CGColor;
+    label.layer.masksToBounds = YES;
 }
 
 - (void)setupCollectionView:(UICollectionView *)collectionView
@@ -150,12 +162,39 @@ double const kOSTDefaultValueToExchange = 10;
         self.selectedFromValue = @(fromValue);
     }
     [self refreshCollectionViews];
+    [self refreshRateLabel];
     [self refreshExchangeButton];
 }
 
 - (void)refreshExchangeButton
 {
     _exchangeButton.alpha = [self isExchangeAvailable] ? 1.f : .7f;
+}
+
+- (void)refreshRateLabel
+{
+    BOOL isEqualCurrencies = [self isEqualCurrencies];
+    if (!isEqualCurrencies)
+    {
+        double fromValue = [_selectedFromValue doubleValue];
+        double toValue = [_selectedToValue doubleValue];
+        double rate = toValue / fromValue;
+        double rateIntegralPart;
+        double rateFractionalPart = modf(rate, &rateIntegralPart);
+        NSString *rateFormat = rateFractionalPart == 0 ? @"%@%.0f" : @"%@%.2f";
+        
+        NSString *helpFormat = [NSString stringWithFormat:@"   %@1 = %@   ",
+                                [_selectedFromRate currencySymbol],
+                                rateFormat];
+        _rateLabel.text = [NSString stringWithFormat:helpFormat,
+                           [_selectedToRate currencySymbol],
+                           rate];
+    }
+    
+    [UIView animateWithDuration:0.2
+                     animations:^{
+         _rateLabel.alpha = !isEqualCurrencies ? 1.f : 0;
+     }];
 }
 
 #pragma mark - Logic methods -

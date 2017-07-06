@@ -15,6 +15,7 @@
                 <outlet property="exchangeButton" destination="Vn1-z5-KhZ" id="8Fn-Gh-o0t"/>
                 <outlet property="firstCollectionView" destination="GOC-qD-cg7" id="CP2-YT-5nk"/>
                 <outlet property="firstPageControl" destination="zrZ-Mo-GsN" id="s3h-vv-dcT"/>
+                <outlet property="rateLabel" destination="FLG-X4-L9A" id="W8m-sE-dvZ"/>
                 <outlet property="refreshButton" destination="1PG-oR-csT" id="qym-0b-hIN"/>
                 <outlet property="secondCollectionView" destination="3go-cv-vk2" id="Wln-u4-74g"/>
                 <outlet property="secondPageControl" destination="RrM-sk-FNi" id="11e-VL-c23"/>
@@ -27,13 +28,23 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="K7V-L9-zrf">
-                    <rect key="frame" x="177" y="32" width="20" height="20"/>
+                    <rect key="frame" x="15" y="32" width="20" height="20"/>
                 </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   $1 = $1   " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="FLG-X4-L9A">
+                    <rect key="frame" x="145.5" y="22.5" width="84.5" height="40"/>
+                    <color key="backgroundColor" red="0.1557384702700696" green="0.38678385123653775" blue="0.62692672891665224" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="roH-tk-d0B"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="18"/>
+                    <color key="textColor" white="1" alpha="0.80372431506849318" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vn1-z5-KhZ">
-                    <rect key="frame" x="240" y="20" width="120" height="45"/>
+                    <rect key="frame" x="255" y="20" width="105" height="45"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="gf3-4S-Aro"/>
-                        <constraint firstAttribute="width" constant="120" id="qwl-IW-kha"/>
+                        <constraint firstAttribute="width" constant="105" id="qwl-IW-kha"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                     <state key="normal" title="Exchange">
@@ -106,17 +117,20 @@
                 <constraint firstItem="K7V-L9-zrf" firstAttribute="centerY" secondItem="Vn1-z5-KhZ" secondAttribute="centerY" id="Gl7-2S-T6h"/>
                 <constraint firstItem="zrZ-Mo-GsN" firstAttribute="bottom" secondItem="GOC-qD-cg7" secondAttribute="bottom" constant="-14" id="KfH-ZI-qEr"/>
                 <constraint firstItem="RrM-sk-FNi" firstAttribute="centerX" secondItem="3go-cv-vk2" secondAttribute="centerX" id="L0Q-zt-5oL"/>
+                <constraint firstItem="FLG-X4-L9A" firstAttribute="centerY" secondItem="Vn1-z5-KhZ" secondAttribute="centerY" id="N38-q6-Hnl"/>
+                <constraint firstItem="FLG-X4-L9A" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Q06-K7-Ngg"/>
                 <constraint firstItem="ufh-EW-JYu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="VLA-zO-acn"/>
                 <constraint firstItem="1PG-oR-csT" firstAttribute="centerX" secondItem="GOC-qD-cg7" secondAttribute="centerX" id="XzQ-o6-QtD"/>
                 <constraint firstAttribute="trailing" secondItem="Vn1-z5-KhZ" secondAttribute="trailing" constant="15" id="beL-OQ-c6V"/>
                 <constraint firstItem="GOC-qD-cg7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cIc-X9-CMm"/>
-                <constraint firstItem="K7V-L9-zrf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="cqi-u6-B40"/>
                 <constraint firstItem="RrM-sk-FNi" firstAttribute="bottom" secondItem="3go-cv-vk2" secondAttribute="bottom" constant="-14" id="hJb-tz-gjd"/>
                 <constraint firstItem="ufh-EW-JYu" firstAttribute="top" secondItem="3go-cv-vk2" secondAttribute="top" id="hMY-XJ-lbx"/>
                 <constraint firstItem="3go-cv-vk2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="iaW-hW-GYn"/>
                 <constraint firstItem="1PG-oR-csT" firstAttribute="centerY" secondItem="GOC-qD-cg7" secondAttribute="centerY" id="lXO-25-CKt"/>
                 <constraint firstAttribute="trailing" secondItem="3go-cv-vk2" secondAttribute="trailing" id="oSN-in-haM"/>
                 <constraint firstAttribute="trailing" secondItem="GOC-qD-cg7" secondAttribute="trailing" id="ope-xP-n2K"/>
+                <constraint firstItem="K7V-L9-zrf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="zDK-3d-4ZN"/>
+                <constraint firstItem="Vn1-z5-KhZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FLG-X4-L9A" secondAttribute="trailing" id="zRu-W0-SyD"/>
             </constraints>
             <point key="canvasLocation" x="69" y="96"/>
         </view>

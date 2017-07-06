@@ -3,12 +3,10 @@
 // protocols
 #import "OSTHudHelper.h"
 #import "OSTServerHelper.h"
-#import "OSTExchangeHelper.h"
 #import "OSTSecurityHelper.h"
 // implementations
 #import "OSTHudHelperImpl.h"
 #import "OSTServerHelperImpl.h"
-#import "OSTExchangeHelperImpl.h"
 #import "OSTSecurityHelperImpl.h"
 
 @implementation OSTHelperAssembly
@@ -25,15 +23,6 @@
 - (id<OSTServerHelper>)serverHelper;
 {
     return [TyphoonDefinition withClass:[OSTServerHelperImpl class]
-                          configuration:^(TyphoonDefinition *definition)
-    {
-        definition.scope = TyphoonScopeSingleton;
-    }];
-}
-
-- (id<OSTExchangeHelper>)exchangeHelper;
-{
-    return [TyphoonDefinition withClass:[OSTExchangeHelperImpl class]
                           configuration:^(TyphoonDefinition *definition)
     {
         definition.scope = TyphoonScopeSingleton;

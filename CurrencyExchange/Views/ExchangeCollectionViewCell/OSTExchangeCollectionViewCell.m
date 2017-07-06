@@ -57,7 +57,9 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
     
     _currencyLabel.text = [mainRate.currencyString uppercaseString];
     
-    _accountLabel.text = [NSString stringWithFormat:@"You have %@%.2f",
+    NSString *accountFormat = [NSString stringWithFormat:@"You have %@",
+                               [self formatWithValue:account]];
+    _accountLabel.text = [NSString stringWithFormat:accountFormat,
                           [mainRate currencySymbol], account];
     BOOL isEnoughMoney = additionalRate || account >= value;
     _accountLabel.textColor = isEnoughMoney ? [UIColor whiteColor] : [UIColor redColor];
@@ -68,9 +70,7 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
     
     _valueTextField.enabled = isShowValue;
     NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
-    double valueIntegralPart;
-    double valueFractionalPart = modf(value, &valueIntegralPart);
-    NSString *valueFormat = valueFractionalPart == 0 ? @"%@%.0f" : @"%@%.2f";
+    NSString *valueFormat = [self formatWithValue:value];
     _valueTextField.text = [NSString stringWithFormat:valueFormat,
                             valuePrefix, value];
     
@@ -78,10 +78,11 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
     if (additionalRate &&
         mainRateDouble != 0)
     {
-        NSString *rateFormat = @"%@1 = %@%.2f";
         double rateDouble = [additionalRate.rate doubleValue] / mainRateDouble;
-        _helpLabel.text = [NSString stringWithFormat:rateFormat,
-                           [mainRate currencySymbol],
+        NSString *helpFormat = [NSString stringWithFormat:@"%@1 = %@",
+                                [mainRate currencySymbol],
+                                [self formatWithValue:rateDouble]];
+        _helpLabel.text = [NSString stringWithFormat:helpFormat,
                            [additionalRate currencySymbol],
                            rateDouble];
     }
@@ -103,6 +104,13 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
                                                                                            action:@selector(handleTapFrom:)];
     tapGestureRecognizer.cancelsTouchesInView = NO;
     [self addGestureRecognizer:tapGestureRecognizer];
+}
+
+- (NSString *)formatWithValue:(double)value
+{
+    double valueIntegralPart;
+    double valueFractionalPart = modf(value, &valueIntegralPart);
+    return valueFractionalPart == 0 ? @"%@%.0f" : @"%@%.2f";
 }
 
 #pragma mark - Animations -
