@@ -9,6 +9,8 @@ NSString * const kOSTPrefixMinus = @"- ";
 NSString * const kOSTComma = @",";
 NSString * const kOSTDot = @".";
 
+NSUInteger const kOSTMaxValueSymbolsCount = 6;
+
 @interface OSTExchangeCollectionViewCell () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *currencyLabel;
@@ -57,6 +59,12 @@ NSString * const kOSTDot = @".";
     
     _accountLabel.text = [NSString stringWithFormat:@"You have %@%.2f",
                           [mainRate currencySymbol], account];
+    BOOL isEnough = additionalRate || account >= value;
+    _accountLabel.textColor = isEnough ? [UIColor whiteColor] : [UIColor redColor];
+    _accountLabel.alpha = isEnough ? .7f : 1.f;
+    if (!isEnough) {
+        [self animateAccountLabel];
+    }
     
     _valueTextField.enabled = isShowValue;
     NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
@@ -95,6 +103,23 @@ NSString * const kOSTDot = @".";
                                                                                            action:@selector(handleTapFrom:)];
     tapGestureRecognizer.cancelsTouchesInView = NO;
     [self addGestureRecognizer:tapGestureRecognizer];
+}
+
+#pragma mark - Animations -
+
+- (void)animateAccountLabel
+{
+    _accountLabel.transform = CGAffineTransformMakeScale(.4, .4);
+    [UIView animateWithDuration:1.f
+                          delay:0
+         usingSpringWithDamping:.5
+          initialSpringVelocity:6.f
+                        options:UIViewAnimationOptionAllowUserInteraction
+                     animations:^
+     {
+         _accountLabel.transform = CGAffineTransformIdentity;
+     }
+                     completion:nil];
 }
 
 #pragma mark - User interaction -
@@ -153,7 +178,8 @@ replacementString:(NSString *)string
         return NO;
     }
     
-    if (newStringWithoutPrefix.length > 6) {
+    if (newStringWithoutPrefix.length > oldStringWithoutPrefix.length &&
+        newStringWithoutPrefix.length > kOSTMaxValueSymbolsCount) {
         return NO;
     }
     

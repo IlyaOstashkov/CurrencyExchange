@@ -133,6 +133,8 @@ double const kOSTDefaultValueToExchange = 10;
     }
 }
 
+#pragma mark - Logic methods -
+
 - (void)exchangeFromFirstToSecond:(BOOL)fromFirstToSecond
 {
     double fromRate = [_selectedFromRate.rate doubleValue];
@@ -181,7 +183,7 @@ double const kOSTDefaultValueToExchange = 10;
              {
                  self.selectedFromRate = _exchangeRateArray.firstObject;
                  self.selectedFromValue = @(kOSTDefaultValueToExchange);
-                 self.selectedToRate = _exchangeRateArray.firstObject;
+                 self.selectedToRate = _selectedFromRate;
              }
              [self exchangeFromFirstToSecond:YES];
          }
