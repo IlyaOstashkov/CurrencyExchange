@@ -1,4 +1,5 @@
 
+typedef void (^OSTExchangeValueBeginEditingCompletion)();
 typedef void (^OSTExchangeValueChangedCompletion)(double value);
 
 @class OSTExchangeRate;
@@ -11,6 +12,7 @@ typedef void (^OSTExchangeValueChangedCompletion)(double value);
 - (void)configureWithMainRate:(OSTExchangeRate *)mainRate
                additionalRate:(OSTExchangeRate *)additionalRate
                   isShowValue:(BOOL)isShowValue
+  valueBeginEditingCompletion:(OSTExchangeValueBeginEditingCompletion)valueBeginEditingCompletion
        valueChangedCompletion:(OSTExchangeValueChangedCompletion)valueChangedCompletion;
 
 @end

@@ -9,7 +9,7 @@
 // views
 #import "OSTExchangeCollectionViewCell.h"
 
-NSUInteger const kOSTRequestPerSeconds = 10;
+NSUInteger const kOSTRequestPerSeconds = 30;
 NSUInteger const kOSTColletionViewPagesCount = 198;
 
 @interface OSTExchangeVC () <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -26,6 +26,7 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
 @property (strong, nonatomic) NSArray *currencyArray;
 @property (strong, nonatomic) NSMutableArray *exchangeRateArray;
 @property (nonatomic) NSUInteger requestTimeCounter;
+@property (nonatomic) BOOL canRefreshColletionViews;
 
 @property (strong, nonatomic) OSTExchangeRate *selectedFromRate;
 @property (strong, nonatomic) OSTExchangeRate *selectedToRate;
@@ -43,6 +44,12 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
     [self requestExchangeRateArrayIsFirstTime:YES];
 }
 
+- (void)dealloc
+{
+    [self clearDelegateForCollectionView:_firstCollectionView];
+    [self clearDelegateForCollectionView:_secondCollectionView];
+}
+
 #pragma mark - Setup methods -
 
 - (void)defaultSetup
@@ -53,6 +60,7 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
     [self setupContentViewIsReadyForExchange:NO];
     [self setupCollectionView:_firstCollectionView];
     [self setupCollectionView:_secondCollectionView];
+    self.canRefreshColletionViews = YES;
     [self setupTapGestureRecognizer];
 }
 
@@ -103,12 +111,21 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
     [self.view addGestureRecognizer:tapGestureRecognizer];
 }
 
+- (void)clearDelegateForCollectionView:(UICollectionView *)collectionView
+{
+    collectionView.delegate = nil;
+    collectionView.dataSource = nil;
+}
+
 #pragma mark - Refresh methods -
 
 - (void)refreshCollectionViews
 {
-    [_firstCollectionView reloadData];
-    [_secondCollectionView reloadData];
+    if (_canRefreshColletionViews)
+    {
+        [_firstCollectionView reloadData];
+        [_secondCollectionView reloadData];
+    }
 }
 
 #pragma mark - Server methods -
@@ -237,13 +254,20 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
                                                                                     forIndexPath:indexPath];
     OSTExchangeRate *rate = _exchangeRateArray[[self exchangeRateArrayIndexForRow:indexPath.row]];
     BOOL isEqualCurrencies = [_selectedFromRate currency] == [_selectedToRate currency];
+    __weak typeof(self) weakSelf = self;
     if (collectionView == _firstCollectionView)
     {
         [cell configureWithMainRate:rate
                      additionalRate:nil
                         isShowValue:!isEqualCurrencies
+        valueBeginEditingCompletion:^
+        {
+            weakSelf.canRefreshColletionViews = NO;
+            //
+        }
              valueChangedCompletion:^(double value)
         {
+            weakSelf.canRefreshColletionViews = YES;
             //
         }];
     }
@@ -252,8 +276,14 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
         [cell configureWithMainRate:rate
                      additionalRate:!isEqualCurrencies ? _selectedFromRate : nil
                         isShowValue:!isEqualCurrencies
+        valueBeginEditingCompletion:^
+         {
+             weakSelf.canRefreshColletionViews = NO;
+             //
+         }
              valueChangedCompletion:^(double value)
          {
+             weakSelf.canRefreshColletionViews = YES;
              //
          }];
     }

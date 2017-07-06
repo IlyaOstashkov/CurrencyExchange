@@ -16,6 +16,7 @@ NSString * const kOSTDot = @".";
 @property (weak, nonatomic) IBOutlet UITextField *valueTextField;
 @property (weak, nonatomic) IBOutlet UILabel *helpLabel;
 
+@property (strong, nonatomic) OSTExchangeValueBeginEditingCompletion valueBeginEditingCompletion;
 @property (strong, nonatomic) OSTExchangeValueChangedCompletion valueChangedCompletion;
 @property (nonatomic) BOOL isShowPlusPrefix;
 
@@ -34,6 +35,7 @@ NSString * const kOSTDot = @".";
 
 - (void)dealloc
 {
+    self.valueBeginEditingCompletion = nil;
     self.valueChangedCompletion = nil;
 }
 
@@ -42,8 +44,10 @@ NSString * const kOSTDot = @".";
 - (void)configureWithMainRate:(OSTExchangeRate *)mainRate
                additionalRate:(OSTExchangeRate *)additionalRate
                   isShowValue:(BOOL)isShowValue
+  valueBeginEditingCompletion:(OSTExchangeValueBeginEditingCompletion)valueBeginEditingCompletion
        valueChangedCompletion:(OSTExchangeValueChangedCompletion)valueChangedCompletion
 {
+    self.valueBeginEditingCompletion = valueBeginEditingCompletion;
     self.valueChangedCompletion = valueChangedCompletion;
     self.isShowPlusPrefix = additionalRate ? YES : NO;
     
@@ -175,6 +179,13 @@ replacementString:(NSString *)string
     {
         NSString *stringWithoutPrefix = [text substringFromIndex:kOSTPrefixPlus.length];
         _valueChangedCompletion([stringWithoutPrefix doubleValue]);
+    }
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (_valueBeginEditingCompletion) {
+        _valueBeginEditingCompletion();
     }
 }
 
