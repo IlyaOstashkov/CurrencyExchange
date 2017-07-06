@@ -190,6 +190,32 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
     }
 }
 
+#pragma mark - Work with user accounts -
+
+- (double)getUserAccountWithCurrency:(OSTCurrency)currency
+{
+    NSString *key;
+    switch (currency)
+    {
+        case OSTCurrencyEUR:
+            key = kOSTSecureKeyEurAccount;
+            break;
+            
+        case OSTCurrencyUSD:
+            key = kOSTSecureKeyUsdAccount;
+            break;
+            
+        case OSTCurrencyGBP:
+            key = kOSTSecureKeyGbpAccount;
+            break;
+            
+        default:
+            return 0;
+    }
+    NSString *userAccountString = [_securityHelper stringForKey:key];
+    return [userAccountString doubleValue];
+}
+
 #pragma mark - User interaction -
 
 - (IBAction)exchangeButtonPressed:(UIButton *)sender
@@ -255,18 +281,20 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
                                                                                     forIndexPath:indexPath];
     OSTExchangeRate *rate = _exchangeRateArray[[self exchangeRateArrayIndexForRow:indexPath.row]];
     BOOL isEqualCurrencies = [_selectedFromRate currency] == [_selectedToRate currency];
+    double account = [self getUserAccountWithCurrency:[rate currency]];
     __weak typeof(self) weakSelf = self;
     if (collectionView == _firstCollectionView)
     {
-        [cell configureWithMainRate:rate
-                     additionalRate:nil
-                        isShowValue:!isEqualCurrencies
-        valueBeginEditingCompletion:^
+        [cell configureWithAccount:account
+                          mainRate:rate
+                    additionalRate:nil
+                       isShowValue:!isEqualCurrencies
+       valueBeginEditingCompletion:^
         {
             weakSelf.canRefreshColletionViews = NO;
             //
         }
-             valueChangedCompletion:^(double value)
+            valueChangedCompletion:^(double value)
         {
             weakSelf.canRefreshColletionViews = YES;
             //
@@ -274,15 +302,16 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
     }
     else if (collectionView == _secondCollectionView)
     {
-        [cell configureWithMainRate:rate
-                     additionalRate:!isEqualCurrencies ? _selectedFromRate : nil
-                        isShowValue:!isEqualCurrencies
-        valueBeginEditingCompletion:^
+        [cell configureWithAccount:account
+                          mainRate:rate
+                    additionalRate:!isEqualCurrencies ? _selectedFromRate : nil
+                       isShowValue:!isEqualCurrencies
+       valueBeginEditingCompletion:^
          {
              weakSelf.canRefreshColletionViews = NO;
              //
          }
-             valueChangedCompletion:^(double value)
+            valueChangedCompletion:^(double value)
          {
              weakSelf.canRefreshColletionViews = YES;
              //

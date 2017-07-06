@@ -12,7 +12,7 @@ NSString * const kOSTDot = @".";
 @interface OSTExchangeCollectionViewCell () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *currencyLabel;
-@property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *accountLabel;
 @property (weak, nonatomic) IBOutlet UITextField *valueTextField;
 @property (weak, nonatomic) IBOutlet UILabel *helpLabel;
 
@@ -41,11 +41,12 @@ NSString * const kOSTDot = @".";
 
 #pragma mark - Public methods -
 
-- (void)configureWithMainRate:(OSTExchangeRate *)mainRate
-               additionalRate:(OSTExchangeRate *)additionalRate
-                  isShowValue:(BOOL)isShowValue
-  valueBeginEditingCompletion:(OSTExchangeValueBeginEditingCompletion)valueBeginEditingCompletion
-       valueChangedCompletion:(OSTExchangeValueChangedCompletion)valueChangedCompletion
+- (void)configureWithAccount:(double)account
+                    mainRate:(OSTExchangeRate *)mainRate
+              additionalRate:(OSTExchangeRate *)additionalRate
+                 isShowValue:(BOOL)isShowValue
+ valueBeginEditingCompletion:(OSTExchangeValueBeginEditingCompletion)valueBeginEditingCompletion
+      valueChangedCompletion:(OSTExchangeValueChangedCompletion)valueChangedCompletion
 {
     self.valueBeginEditingCompletion = valueBeginEditingCompletion;
     self.valueChangedCompletion = valueChangedCompletion;
@@ -53,11 +54,14 @@ NSString * const kOSTDot = @".";
     
     _currencyLabel.text = [mainRate.currencyString uppercaseString];
     
+    _accountLabel.text = [NSString stringWithFormat:@"You have %@%.2f",
+                          [mainRate currencySymbol], account];
+    
     _valueTextField.enabled = isShowValue;
     NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
     _valueTextField.text = [NSString stringWithFormat:@"%@%@", valuePrefix, @534.20];
     /* 
-     Also I can use NSAttributedString to output the decimal part
+     Also I can use here NSAttributedString to output the decimal part
      of a number using a smaller font.
      */
     

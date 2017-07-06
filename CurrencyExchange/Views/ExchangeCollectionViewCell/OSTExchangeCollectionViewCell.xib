@@ -61,7 +61,7 @@
                 <constraint firstItem="c01-4O-fsg" firstAttribute="leading" secondItem="nQx-mn-jHt" secondAttribute="trailing" constant="10" id="wsO-pS-dUd"/>
             </constraints>
             <connections>
-                <outlet property="balanceLabel" destination="zLI-BM-GVh" id="d8V-id-g0X"/>
+                <outlet property="accountLabel" destination="zLI-BM-GVh" id="FV0-pf-TNb"/>
                 <outlet property="currencyLabel" destination="nQx-mn-jHt" id="36l-nT-5y1"/>
                 <outlet property="helpLabel" destination="u6R-mI-GRm" id="CCZ-wN-0Fo"/>
                 <outlet property="valueTextField" destination="c01-4O-fsg" id="y5W-N1-A0c"/>
