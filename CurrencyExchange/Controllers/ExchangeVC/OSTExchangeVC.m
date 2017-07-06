@@ -12,6 +12,7 @@
 
 NSUInteger const kOSTRequestPerSeconds = 30;
 NSUInteger const kOSTColletionViewPagesCount = 198;
+double const kOSTDefaultValueToExchange = 10;
 
 @interface OSTExchangeVC () <UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -29,7 +30,10 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
 @property (nonatomic) NSUInteger requestTimeCounter;
 @property (nonatomic) BOOL canRefreshColletionViews;
 
+@property (strong, nonatomic) NSNumber *selectedFromValue;
 @property (strong, nonatomic) OSTExchangeRate *selectedFromRate;
+
+@property (strong, nonatomic) NSNumber *selectedToValue;
 @property (strong, nonatomic) OSTExchangeRate *selectedToRate;
 
 @end
@@ -129,6 +133,25 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
     }
 }
 
+- (void)exchangeFromFirstToSecond:(BOOL)fromFirstToSecond
+{
+    double fromRate = [_selectedFromRate.rate doubleValue];
+    double toRate = [_selectedToRate.rate doubleValue];
+    if (fromFirstToSecond)
+    {
+        double fromValue = [_selectedFromValue doubleValue];
+        double toValue = toRate * fromValue / fromRate;
+        self.selectedToValue = @(toValue);
+    }
+    else
+    {
+        double toValue = [_selectedToValue doubleValue];
+        double fromValue = fromRate * toValue / toRate;
+        self.selectedFromValue = @(fromValue);
+    }
+    [self refreshCollectionViews];
+}
+
 #pragma mark - Server methods -
 
 - (void)requestExchangeRateArrayIsFirstTime:(BOOL)isFirstTime
@@ -154,11 +177,13 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
          {
              [self setupContentViewIsReadyForExchange:YES];
              [self prepareExchangeRateArrayWithResponse:response];
-             if (isFirstTime) {
+             if (isFirstTime)
+             {
                  self.selectedFromRate = _exchangeRateArray.firstObject;
+                 self.selectedFromValue = @(kOSTDefaultValueToExchange);
                  self.selectedToRate = _exchangeRateArray.firstObject;
              }
-             [self refreshCollectionViews];
+             [self exchangeFromFirstToSecond:YES];
          }
      }];
 }
@@ -286,35 +311,37 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
     if (collectionView == _firstCollectionView)
     {
         [cell configureWithAccount:account
+                             value:[_selectedFromValue doubleValue]
                           mainRate:rate
                     additionalRate:nil
                        isShowValue:!isEqualCurrencies
        valueBeginEditingCompletion:^
         {
             weakSelf.canRefreshColletionViews = NO;
-            //
         }
             valueChangedCompletion:^(double value)
         {
+            weakSelf.selectedFromValue = @(value);
             weakSelf.canRefreshColletionViews = YES;
-            //
+            [weakSelf exchangeFromFirstToSecond:YES];
         }];
     }
     else if (collectionView == _secondCollectionView)
     {
         [cell configureWithAccount:account
+                             value:[_selectedToValue doubleValue]
                           mainRate:rate
                     additionalRate:!isEqualCurrencies ? _selectedFromRate : nil
                        isShowValue:!isEqualCurrencies
        valueBeginEditingCompletion:^
          {
              weakSelf.canRefreshColletionViews = NO;
-             //
          }
             valueChangedCompletion:^(double value)
          {
+             weakSelf.selectedToValue = @(value);
              weakSelf.canRefreshColletionViews = YES;
-             //
+             [weakSelf exchangeFromFirstToSecond:NO];
          }];
     }
     
@@ -331,13 +358,15 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
     {
         _firstPageControl.currentPage = currentIndex;
         self.selectedFromRate = _exchangeRateArray[currentIndex];
+        self.selectedFromValue = @(kOSTDefaultValueToExchange);
     }
     else if (scrollView == _secondCollectionView)
     {
         _secondPageControl.currentPage = currentIndex;
         self.selectedToRate = _exchangeRateArray[currentIndex];
+        self.selectedToValue = @(kOSTDefaultValueToExchange);
     }
-    [self refreshCollectionViews];
+    [self exchangeFromFirstToSecond:YES];
 }
 
 @end

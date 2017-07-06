@@ -42,6 +42,7 @@ NSString * const kOSTDot = @".";
 #pragma mark - Public methods -
 
 - (void)configureWithAccount:(double)account
+                       value:(double)value
                     mainRate:(OSTExchangeRate *)mainRate
               additionalRate:(OSTExchangeRate *)additionalRate
                  isShowValue:(BOOL)isShowValue
@@ -59,7 +60,7 @@ NSString * const kOSTDot = @".";
     
     _valueTextField.enabled = isShowValue;
     NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
-    _valueTextField.text = [NSString stringWithFormat:@"%@%@", valuePrefix, @534.20];
+    _valueTextField.text = [NSString stringWithFormat:@"%@%.2f", valuePrefix, value];
     /* 
      Also I can use here NSAttributedString to output the decimal part
      of a number using a smaller font.
@@ -82,7 +83,7 @@ NSString * const kOSTDot = @".";
                      animations:^
      {
          _valueTextField.alpha = isShowValue ? 1.f : 0;
-         _helpLabel.alpha = additionalRate ? 1.f : 0;
+         _helpLabel.alpha = additionalRate ? .7f : 0;
      }];
 }
 
