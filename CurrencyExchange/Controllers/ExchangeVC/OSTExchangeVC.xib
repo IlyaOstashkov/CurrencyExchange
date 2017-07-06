@@ -12,7 +12,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OSTExchangeVC">
             <connections>
                 <outlet property="activityIndicator" destination="K7V-L9-zrf" id="9Wy-sj-Sa6"/>
-                <outlet property="dimView" destination="x5I-xx-dQb" id="IpX-6Q-PE8"/>
                 <outlet property="exchangeButton" destination="Vn1-z5-KhZ" id="8Fn-Gh-o0t"/>
                 <outlet property="firstCollectionView" destination="GOC-qD-cg7" id="CP2-YT-5nk"/>
                 <outlet property="firstPageControl" destination="zrZ-Mo-GsN" id="s3h-vv-dcT"/>
@@ -60,6 +59,10 @@
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="zrZ-Mo-GsN">
                     <rect key="frame" x="168" y="189" width="39" height="37"/>
                 </pageControl>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="common-dim" translatesAutoresizingMaskIntoConstraints="NO" id="ufh-EW-JYu">
+                    <rect key="frame" x="0.0" y="240" width="375" height="427"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1PG-oR-csT">
                     <rect key="frame" x="112.5" y="135" width="150" height="50"/>
                     <constraints>
@@ -75,10 +78,6 @@
                         <action selector="refreshButtonPressed:" destination="-1" eventType="touchUpInside" id="aGC-j4-bRm"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x5I-xx-dQb">
-                    <rect key="frame" x="0.0" y="240" width="375" height="427"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="3go-cv-vk2">
                     <rect key="frame" x="0.0" y="240" width="375" height="160"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -96,30 +95,33 @@
                     <rect key="frame" x="168" y="349" width="39" height="37"/>
                 </pageControl>
             </subviews>
-            <color key="backgroundColor" red="0.0" green="0.47058823529411764" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.0" green="0.43137254901960786" blue="0.81176470588235294" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="ufh-EW-JYu" secondAttribute="bottom" id="040-Uj-yHN"/>
                 <constraint firstItem="GOC-qD-cg7" firstAttribute="top" secondItem="Vn1-z5-KhZ" secondAttribute="bottom" constant="15" id="0f1-kc-bKU"/>
                 <constraint firstItem="zrZ-Mo-GsN" firstAttribute="centerX" secondItem="GOC-qD-cg7" secondAttribute="centerX" id="5tL-lq-OgZ"/>
                 <constraint firstItem="3go-cv-vk2" firstAttribute="top" secondItem="GOC-qD-cg7" secondAttribute="bottom" id="65D-to-aef"/>
                 <constraint firstItem="Vn1-z5-KhZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="CKQ-dP-UC1"/>
+                <constraint firstAttribute="trailing" secondItem="ufh-EW-JYu" secondAttribute="trailing" id="EJm-8F-W4B"/>
                 <constraint firstItem="K7V-L9-zrf" firstAttribute="centerY" secondItem="Vn1-z5-KhZ" secondAttribute="centerY" id="Gl7-2S-T6h"/>
                 <constraint firstItem="zrZ-Mo-GsN" firstAttribute="bottom" secondItem="GOC-qD-cg7" secondAttribute="bottom" constant="-14" id="KfH-ZI-qEr"/>
                 <constraint firstItem="RrM-sk-FNi" firstAttribute="centerX" secondItem="3go-cv-vk2" secondAttribute="centerX" id="L0Q-zt-5oL"/>
-                <constraint firstItem="x5I-xx-dQb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NNK-jy-XsZ"/>
-                <constraint firstItem="x5I-xx-dQb" firstAttribute="top" secondItem="3go-cv-vk2" secondAttribute="top" id="W5i-nM-OhV"/>
+                <constraint firstItem="ufh-EW-JYu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="VLA-zO-acn"/>
                 <constraint firstItem="1PG-oR-csT" firstAttribute="centerX" secondItem="GOC-qD-cg7" secondAttribute="centerX" id="XzQ-o6-QtD"/>
                 <constraint firstAttribute="trailing" secondItem="Vn1-z5-KhZ" secondAttribute="trailing" constant="15" id="beL-OQ-c6V"/>
                 <constraint firstItem="GOC-qD-cg7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="cIc-X9-CMm"/>
                 <constraint firstItem="K7V-L9-zrf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="cqi-u6-B40"/>
                 <constraint firstItem="RrM-sk-FNi" firstAttribute="bottom" secondItem="3go-cv-vk2" secondAttribute="bottom" constant="-14" id="hJb-tz-gjd"/>
+                <constraint firstItem="ufh-EW-JYu" firstAttribute="top" secondItem="3go-cv-vk2" secondAttribute="top" id="hMY-XJ-lbx"/>
                 <constraint firstItem="3go-cv-vk2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="iaW-hW-GYn"/>
-                <constraint firstAttribute="bottom" secondItem="x5I-xx-dQb" secondAttribute="bottom" id="k3J-Xk-mPj"/>
                 <constraint firstItem="1PG-oR-csT" firstAttribute="centerY" secondItem="GOC-qD-cg7" secondAttribute="centerY" id="lXO-25-CKt"/>
                 <constraint firstAttribute="trailing" secondItem="3go-cv-vk2" secondAttribute="trailing" id="oSN-in-haM"/>
                 <constraint firstAttribute="trailing" secondItem="GOC-qD-cg7" secondAttribute="trailing" id="ope-xP-n2K"/>
-                <constraint firstAttribute="trailing" secondItem="x5I-xx-dQb" secondAttribute="trailing" id="prg-0n-iq3"/>
             </constraints>
             <point key="canvasLocation" x="69" y="96"/>
         </view>
     </objects>
+    <resources>
+        <image name="common-dim" width="187" height="215"/>
+    </resources>
 </document>

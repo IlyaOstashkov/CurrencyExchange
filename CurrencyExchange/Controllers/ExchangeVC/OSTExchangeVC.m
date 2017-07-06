@@ -21,7 +21,6 @@ double const kOSTDefaultValueToExchange = 10;
 @property (weak, nonatomic) IBOutlet UICollectionView *firstCollectionView;
 @property (weak, nonatomic) IBOutlet UIPageControl *firstPageControl;
 @property (weak, nonatomic) IBOutlet UIButton *refreshButton;
-@property (weak, nonatomic) IBOutlet UIView *dimView;
 @property (weak, nonatomic) IBOutlet UICollectionView *secondCollectionView;
 @property (weak, nonatomic) IBOutlet UIPageControl *secondPageControl;
 
