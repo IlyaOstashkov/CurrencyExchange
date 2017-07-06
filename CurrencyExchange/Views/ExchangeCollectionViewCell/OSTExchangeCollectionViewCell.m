@@ -68,11 +68,11 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
     
     _valueTextField.enabled = isShowValue;
     NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
-    _valueTextField.text = [NSString stringWithFormat:@"%@%.2f", valuePrefix, value];
-    /* 
-     Also I can use here NSAttributedString to output the decimal part
-     of a number using a smaller font.
-     */
+    double valueIntegralPart;
+    double valueFractionalPart = modf(value, &valueIntegralPart);
+    NSString *valueFormat = valueFractionalPart == 0 ? @"%@%.0f" : @"%@%.2f";
+    _valueTextField.text = [NSString stringWithFormat:valueFormat,
+                            valuePrefix, value];
     
     double mainRateDouble = [mainRate.rate doubleValue];
     if (additionalRate &&
