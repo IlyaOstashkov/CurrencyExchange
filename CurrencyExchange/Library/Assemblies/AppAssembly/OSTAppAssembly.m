@@ -24,8 +24,8 @@
     return [TyphoonDefinition withClass:[OSTExchangeVC class]
                           configuration:^(TyphoonDefinition *definition)
     {
-        [definition injectProperty:@selector(exchangeHelper)
-                              with:[_helperAssembly exchangeHelper]];
+        [definition injectProperty:@selector(serverHelper)
+                              with:[_helperAssembly serverHelper]];
         [definition injectProperty:@selector(hudHelper)
                               with:[_helperAssembly hudHelper]];
     }];

@@ -1,9 +1,9 @@
 
-@protocol OSTExchangeHelper, OSTHudHelper;
+@protocol OSTServerHelper, OSTHudHelper;
 
 @interface OSTExchangeVC : UIViewController
 
-@property (strong, nonatomic) id<OSTExchangeHelper> exchangeHelper;
+@property (strong, nonatomic) id<OSTServerHelper> serverHelper;
 @property (strong, nonatomic) id<OSTHudHelper> hudHelper;
 
 @end

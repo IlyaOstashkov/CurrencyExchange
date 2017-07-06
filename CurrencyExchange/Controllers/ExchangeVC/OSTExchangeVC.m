@@ -1,7 +1,7 @@
 
 #import "OSTExchangeVC.h"
 // protocols
-#import "OSTExchangeHelper.h"
+#import "OSTServerHelper.h"
 #import "OSTHudHelper.h"
 // models
 #import "OSTExchangeRate.h"
@@ -9,6 +9,7 @@
 // views
 #import "OSTExchangeCollectionViewCell.h"
 
+NSUInteger const kOSTRequestPerSeconds = 10;
 NSUInteger const kOSTColletionViewPagesCount = 198;
 
 @interface OSTExchangeVC () <UICollectionViewDelegate, UICollectionViewDataSource>
@@ -24,6 +25,7 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
 
 @property (strong, nonatomic) NSArray *currencyArray;
 @property (strong, nonatomic) NSMutableArray *exchangeRateArray;
+@property (nonatomic) NSUInteger requestTimeCounter;
 
 @property (strong, nonatomic) OSTExchangeRate *selectedFromRate;
 @property (strong, nonatomic) OSTExchangeRate *selectedToRate;
@@ -38,7 +40,7 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
 {
     [super viewDidLoad];
     [self defaultSetup];
-    [self requestExchangeRateArray];
+    [self requestExchangeRateArrayIsFirstTime:YES];
 }
 
 #pragma mark - Setup methods -
@@ -111,24 +113,33 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
 
 #pragma mark - Server methods -
 
-- (void)requestExchangeRateArray
+- (void)requestExchangeRateArrayIsFirstTime:(BOOL)isFirstTime
 {
     [_activityIndicator startAnimating];
     _refreshButton.hidden = YES;
-    [_exchangeHelper getExchangeRateListWithCompletion:^(OSTExchangeRateList *rateList,
-                                                         NSError *error)
+    [_serverHelper getExchangeRateListWithCompletion:^(OSTExchangeRateList *response,
+                                                       NSError *error)
      {
+         [self startRequestTimer];
          [_activityIndicator stopAnimating];
-         if (error || !rateList.list.count)
+         if (error || !response.list.count)
          {
-             _refreshButton.hidden = NO;
-             [_hudHelper showWithMessage:@"Could not get exchange rates, try again later"
+             NSString *message = [NSString stringWithFormat:@"Could not get exchange rates%@",
+                                  isFirstTime ? @", try again later" : @""];
+             [_hudHelper showWithMessage:message
                                     type:OSTHudTypeMessage];
+             if (isFirstTime) {
+                 _refreshButton.hidden = NO;
+             }
          }
          else
          {
              [self setupContentViewIsReadyForExchange:YES];
-             [self prepareExchangeRateArrayWithResponse:rateList];
+             [self prepareExchangeRateArrayWithResponse:response];
+             if (isFirstTime) {
+                 self.selectedFromRate = _exchangeRateArray.firstObject;
+                 self.selectedToRate = _exchangeRateArray.firstObject;
+             }
              [self refreshCollectionViews];
          }
      }];
@@ -159,10 +170,6 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
             }
         }
     }
-    
-    // by default
-    self.selectedFromRate = _exchangeRateArray.firstObject;
-    self.selectedToRate = _exchangeRateArray.firstObject;
 }
 
 #pragma mark - User interaction -
@@ -174,12 +181,39 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
 
 - (IBAction)refreshButtonPressed:(UIButton *)sender
 {
-    [self requestExchangeRateArray];
+    [self requestExchangeRateArrayIsFirstTime:YES];
 }
 
 - (void)handleTapFrom:(id)sender
 {
     [self.view endEditing:YES];
+}
+
+#pragma mark - Timer methods -
+
+- (void)startRequestTimer
+{
+    self.requestTimeCounter = kOSTRequestPerSeconds;
+    [self requestTimerTick];
+}
+
+- (void)requestTimerTick
+{
+    /**
+     I want to show work with GCD and recursion here.
+     But also I can perform periodic request with NSTimer.
+     */
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)),
+                   dispatch_get_main_queue(), ^
+    {
+        if (_requestTimeCounter == 0)
+        {
+            [self requestExchangeRateArrayIsFirstTime:NO];
+            return;
+        }
+        self.requestTimeCounter--;
+        [self requestTimerTick];
+    });
 }
 
 #pragma mark - UICollectionView methods -

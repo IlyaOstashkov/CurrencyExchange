@@ -34,8 +34,6 @@
     return [TyphoonDefinition withClass:[OSTExchangeHelperImpl class]
                           configuration:^(TyphoonDefinition *definition)
     {
-        [definition injectProperty:@selector(serverHelper)
-                              with:[self serverHelper]];
         definition.scope = TyphoonScopeSingleton;
     }];
 }
