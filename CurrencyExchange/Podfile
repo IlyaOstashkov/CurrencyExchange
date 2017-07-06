@@ -9,6 +9,7 @@ def shared_pods
     pod 'MantleXMLExtension'
     pod 'Masonry'
     pod 'LGViews'
+    pod 'SAMKeychain'
 end
 
 target "CurrencyExchange" do

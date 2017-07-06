@@ -141,7 +141,7 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
          [_activityIndicator stopAnimating];
          if (error || !response.list.count)
          {
-             NSString *message = [NSString stringWithFormat:@"Could not get exchange rates%@",
+             NSString *message = [NSString stringWithFormat:@"Could not get actual exchange rates%@",
                                   isFirstTime ? @", try again later" : @""];
              [_hudHelper showWithMessage:message
                                     type:OSTHudTypeMessage];
@@ -217,7 +217,7 @@ NSUInteger const kOSTColletionViewPagesCount = 198;
 - (void)requestTimerTick
 {
     /**
-     I want to show work with GCD and recursion here.
+     I want to show the work with GCD and recursion here.
      But also I can perform periodic request with NSTimer.
      */
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)),

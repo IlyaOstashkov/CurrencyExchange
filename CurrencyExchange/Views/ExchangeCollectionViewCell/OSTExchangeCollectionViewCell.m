@@ -55,7 +55,11 @@ NSString * const kOSTDot = @".";
     
     _valueTextField.enabled = isShowValue;
     NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
-    _valueTextField.text = [NSString stringWithFormat:@"%@%@", valuePrefix, @534.20]; //for test
+    _valueTextField.text = [NSString stringWithFormat:@"%@%@", valuePrefix, @534.20];
+    /* 
+     Also I can use NSAttributedString to output the decimal part
+     of a number using a smaller font.
+     */
     
     double mainRateDouble = [mainRate.rate doubleValue];
     if (additionalRate &&

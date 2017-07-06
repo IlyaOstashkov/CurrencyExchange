@@ -23,6 +23,7 @@ PODS:
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
   - OCMock (3.4)
+  - SAMKeychain (1.5.2)
   - Typhoon (3.5.1):
     - Typhoon/no-arc (= 3.5.1)
   - Typhoon/no-arc (3.5.1)
@@ -34,6 +35,7 @@ DEPENDENCIES:
   - Masonry
   - MBProgressHUD
   - OCMock
+  - SAMKeychain
   - Typhoon (~> 3.5.1)
 
 SPEC CHECKSUMS:
@@ -44,8 +46,9 @@ SPEC CHECKSUMS:
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   OCMock: 35ae71d6a8fcc1b59434d561d1520b9dd4f15765
+  SAMKeychain: 1865333198217411f35327e8da61b43de79b635b
   Typhoon: c0950bb9f2e835eb8a7dc6983160109b6baf2dda
 
-PODFILE CHECKSUM: ef6c68f4eeee38606bdbb11d6c53d8c47ab7a94f
+PODFILE CHECKSUM: 7c7b6d35caeacc05287407c5ff9fd5a25aa5012b
 
 COCOAPODS: 1.2.1
