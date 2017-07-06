@@ -193,7 +193,7 @@ double const kOSTDefaultValueToExchange = 10;
     
     [UIView animateWithDuration:0.2
                      animations:^{
-         _rateLabel.alpha = !isEqualCurrencies != 0 ? 1.f : 0;
+         _rateLabel.alpha = !isEqualCurrencies ? 1.f : 0;
      }];
 }
 

@@ -210,17 +210,21 @@ replacementString:(NSString *)string
     }
     
     NSCharacterSet *decimalDigitCharSet = [NSCharacterSet decimalDigitCharacterSet];
+    NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
     // if new text doesn't contains digits then set 0
     if ([text rangeOfCharacterFromSet:decimalDigitCharSet].location == NSNotFound)
     {
-        NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
         text = [NSString stringWithFormat:@"%@0", valuePrefix];
     }
+    
+    NSString *stringWithoutPrefix = [text substringFromIndex:kOSTPrefixPlus.length];
+    double value = [stringWithoutPrefix doubleValue];
+    NSString *valueFormat = [self formatWithValue:value];
+    textField.text = [NSString stringWithFormat:valueFormat,
+                            valuePrefix, value];
     textField.text = text;
     
-    if (_valueChangedCompletion)
-    {
-        NSString *stringWithoutPrefix = [text substringFromIndex:kOSTPrefixPlus.length];
+    if (_valueChangedCompletion) {
         _valueChangedCompletion([stringWithoutPrefix doubleValue]);
     }
 }
