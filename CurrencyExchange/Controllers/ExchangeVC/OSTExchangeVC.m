@@ -159,13 +159,24 @@ double const kOSTDefaultValueToExchange = 10;
     _exchangeButton.alpha = [self isExchangeAvailable] ? 1.f : .7f;
 }
 
+#pragma mark - Logic methods -
+
 - (BOOL)isExchangeAvailable
+{
+    return [self isEnoughMoney] && ![self isEqualCurrencies];
+}
+
+- (BOOL)isEnoughMoney
 {
     OSTCurrency currency = [_selectedFromRate currency];
     double account = [self getUserAccountWithCurrency:currency];
     double fromValue = [_selectedFromValue doubleValue];
-    BOOL isEqualCurrencies = [_selectedFromRate currency] == [_selectedToRate currency];
-    return account >= fromValue && !isEqualCurrencies;
+    return account >= fromValue;
+}
+
+- (BOOL)isEqualCurrencies
+{
+    return [_selectedFromRate currency] == [_selectedToRate currency];
 }
 
 #pragma mark - Server methods -
@@ -233,7 +244,7 @@ double const kOSTDefaultValueToExchange = 10;
 
 #pragma mark - Work with user accounts -
 
-- (double)getUserAccountWithCurrency:(OSTCurrency)currency
+- (NSString *)getUserAccountKeyWithCurrency:(OSTCurrency)currency
 {
     NSString *key;
     switch (currency)
@@ -241,27 +252,65 @@ double const kOSTDefaultValueToExchange = 10;
         case OSTCurrencyEUR:
             key = kOSTSecureKeyEurAccount;
             break;
-            
         case OSTCurrencyUSD:
             key = kOSTSecureKeyUsdAccount;
             break;
-            
         case OSTCurrencyGBP:
             key = kOSTSecureKeyGbpAccount;
             break;
-            
         default:
-            return 0;
+            return nil;
     }
+    return key;
+}
+
+- (double)getUserAccountWithCurrency:(OSTCurrency)currency
+{
+    NSString *key = [self getUserAccountKeyWithCurrency:currency];
     NSString *userAccountString = [_securityHelper stringForKey:key];
     return [userAccountString doubleValue];
+}
+
+- (void)saveUserAccount:(double)account
+            forCurrency:(OSTCurrency)currency
+{
+    NSString *key = [self getUserAccountKeyWithCurrency:currency];
+    [_securityHelper saveString:[NSString stringWithFormat:@"%.2f", account]
+                         forKey:key];
 }
 
 #pragma mark - User interaction -
 
 - (IBAction)exchangeButtonPressed:(UIButton *)sender
 {
+    if ([self isEqualCurrencies]) {
+        [_hudHelper showWithMessage:@"Select the currency to exchange"
+                               type:OSTHudTypeMessage];
+        return;
+    }
     
+    if (![self isEnoughMoney]) {
+        [_hudHelper showWithMessage:@"You do not have enough money to exchange"
+                               type:OSTHudTypeMessage];
+        return;
+    }
+    
+    OSTCurrency fromCurrency = [_selectedFromRate currency];
+    double fromAccount = [self getUserAccountWithCurrency:fromCurrency];
+    fromAccount = fromAccount - [_selectedFromValue doubleValue];
+    [self saveUserAccount:fromAccount
+              forCurrency:fromCurrency];
+    
+    OSTCurrency toCurrency = [_selectedToRate currency];
+    double toAccount = [self getUserAccountWithCurrency:toCurrency];
+    toAccount = toAccount + [_selectedToValue doubleValue];
+    [self saveUserAccount:toAccount
+              forCurrency:toCurrency];
+    
+    [_hudHelper showWithMessage:@"Success!"
+                           type:OSTHudTypeSuccess];
+    
+    [self refreshContentViewWithDirectExchange:YES];
 }
 
 - (IBAction)refreshButtonPressed:(UIButton *)sender
@@ -321,7 +370,7 @@ double const kOSTDefaultValueToExchange = 10;
     OSTExchangeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellId
                                                                                     forIndexPath:indexPath];
     OSTExchangeRate *rate = _exchangeRateArray[[self exchangeRateArrayIndexForRow:indexPath.row]];
-    BOOL isEqualCurrencies = [_selectedFromRate currency] == [_selectedToRate currency];
+    BOOL isEqualCurrencies = [self isEqualCurrencies];
     double account = [self getUserAccountWithCurrency:[rate currency]];
     __weak typeof(self) weakSelf = self;
     if (collectionView == _firstCollectionView)
