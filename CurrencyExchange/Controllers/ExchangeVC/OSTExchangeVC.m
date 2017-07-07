@@ -329,6 +329,9 @@ double const kOSTDefaultValueToExchange = 10;
     if ([self isEqualCurrencies]) {
         [_hudHelper showWithMessage:@"Select another currency to exchange"
                                type:OSTHudTypeMessage];
+        /**
+         Such messages have to store in *.strings file (For example Localizable.strings)
+         */
         return;
     }
     
@@ -338,7 +341,7 @@ double const kOSTDefaultValueToExchange = 10;
         return;
     }
     
-    // spend money of the first currency
+    // spend first currency money
     OSTCurrency fromCurrency = [_selectedFromRate currency];
     double fromAccount = [self getUserAccountWithCurrency:fromCurrency];
     fromAccount = fromAccount - [_selectedFromValue doubleValue];
@@ -350,7 +353,7 @@ double const kOSTDefaultValueToExchange = 10;
      to store user accounts if needed.
      */
     
-    // get the money of the second currency
+    // received second currency money
     OSTCurrency toCurrency = [_selectedToRate currency];
     double toAccount = [self getUserAccountWithCurrency:toCurrency];
     toAccount = toAccount + [_selectedToValue doubleValue];
