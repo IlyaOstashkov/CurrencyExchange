@@ -174,10 +174,12 @@ replacementString:(NSString *)string
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range
                                                                   withString:string];
     NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
+    // prevent prefix deletion
     if (![newString hasPrefix:valuePrefix]) {
         return NO;
     }
     
+    // prevent editing with double decimal separator
     NSString *oldString = textField.text;
     if ([string isEqualToString:kOSTComma] &&
         ([oldString containsString:kOSTComma] ||
@@ -185,6 +187,7 @@ replacementString:(NSString *)string
         return NO;
     }
     
+    // prevent editing with number or separator after 0
     NSString *oldStringWithoutPrefix = [oldString substringFromIndex:kOSTPrefixPlus.length];
     if ([oldStringWithoutPrefix isEqualToString:@"0"] &&
         ![string isEqualToString:kOSTComma] &&
@@ -192,16 +195,19 @@ replacementString:(NSString *)string
         return NO;
     }
     
+    // prevent begin editing with decimal separator
     NSString *newStringWithoutPrefix = [newString substringFromIndex:kOSTPrefixPlus.length];
     if ([newStringWithoutPrefix hasPrefix:kOSTComma]) {
         return NO;
     }
     
+    // limiting the maximum symbols count for beauty
     if (newStringWithoutPrefix.length > oldStringWithoutPrefix.length &&
         newStringWithoutPrefix.length > kOSTMaxValueSymbolsCount) {
         return NO;
     }
     
+    // value decimal part lenght haven't to be greater than 2
     if (![self checkValueDecimalPartWithString:newStringWithoutPrefix
                                  withSeparator:kOSTDot] ||
         ![self checkValueDecimalPartWithString:newStringWithoutPrefix
@@ -215,9 +221,11 @@ replacementString:(NSString *)string
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     NSString *text = textField.text;
+    // replace comma separator to dot
     text = [text stringByReplacingOccurrencesOfString:kOSTComma
                                            withString:kOSTDot];
     
+    // remove last symbol if it is separator
     if ([text hasSuffix:kOSTDot]) {
         text = [text substringToIndex:text.length - 1];
     }
@@ -225,17 +233,15 @@ replacementString:(NSString *)string
     NSCharacterSet *decimalDigitCharSet = [NSCharacterSet decimalDigitCharacterSet];
     NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
     // if new text doesn't contains digits then set 0
-    if ([text rangeOfCharacterFromSet:decimalDigitCharSet].location == NSNotFound)
-    {
+    if ([text rangeOfCharacterFromSet:decimalDigitCharSet].location == NSNotFound) {
         text = [NSString stringWithFormat:@"%@0", valuePrefix];
     }
     
+    // additional text formatting
     NSString *stringWithoutPrefix = [text substringFromIndex:kOSTPrefixPlus.length];
     double value = [stringWithoutPrefix doubleValue];
     NSString *valueFormat = [self formatWithValue:value];
-    textField.text = [NSString stringWithFormat:valueFormat,
-                            valuePrefix, value];
-    textField.text = text;
+    textField.text = [NSString stringWithFormat:valueFormat, valuePrefix, value];
     
     if (_valueChangedCompletion) {
         _valueChangedCompletion([stringWithoutPrefix doubleValue]);
