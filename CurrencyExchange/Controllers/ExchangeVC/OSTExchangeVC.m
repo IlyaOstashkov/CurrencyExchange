@@ -468,8 +468,7 @@ double const kOSTDefaultValueToExchange = 10;
                   layout:(UICollectionViewLayout*)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeMake(self.view.frame.size.width,
-                      collectionView.frame.size.height);
+    return collectionView.frame.size;
 }
 
 #pragma mark - UIScrollVewDelegate -
