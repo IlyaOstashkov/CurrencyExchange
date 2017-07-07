@@ -120,7 +120,7 @@ double const kOSTDefaultValueToExchange = 10;
 
 - (NSUInteger)exchangeRateArrayIndexForRow:(NSUInteger)row
 {
-    return row % _exchangeRateArray.count;
+    return _exchangeRateArray.count ? row % _exchangeRateArray.count : 0;
 }
 
 - (void)clearDelegateForCollectionView:(UICollectionView *)collectionView
@@ -462,6 +462,14 @@ double const kOSTDefaultValueToExchange = 10;
     }
     
     return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout*)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(self.view.frame.size.width,
+                      collectionView.frame.size.height);
 }
 
 #pragma mark - UIScrollVewDelegate -
