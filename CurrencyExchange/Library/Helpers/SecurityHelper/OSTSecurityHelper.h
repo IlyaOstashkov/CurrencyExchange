@@ -1,8 +1,12 @@
 
+// keys
 extern NSString * const kOSTSecureKeyEurAccount;
 extern NSString * const kOSTSecureKeyUsdAccount;
 extern NSString * const kOSTSecureKeyGbpAccount;
 
+/**
+ It helps to store strings securely
+ */
 @protocol OSTSecurityHelper <NSObject>
 
 /**

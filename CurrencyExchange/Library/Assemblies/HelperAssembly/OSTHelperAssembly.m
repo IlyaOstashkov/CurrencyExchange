@@ -16,6 +16,7 @@
     return [TyphoonDefinition withClass:[OSTHudHelperImpl class]
                           configuration:^(TyphoonDefinition *definition)
     {
+        // I dont need more than one helper instance
         definition.scope = TyphoonScopeSingleton;
     }];
 }

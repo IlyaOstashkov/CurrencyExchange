@@ -1,6 +1,9 @@
 
 typedef void (^OSTServerHelperCompletion)(id response, NSError *error);
 
+/**
+ It helps to make requests to the API
+ */
 @protocol OSTServerHelper <NSObject>
 
 /**

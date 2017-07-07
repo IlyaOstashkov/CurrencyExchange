@@ -7,7 +7,7 @@ typedef void (^OSTExchangeValueChangedCompletion)(double value);
 @interface OSTExchangeCollectionViewCell : UICollectionViewCell
 
 /**
- Configure cell
+ Configure exchange collection view cell with data
  */
 - (void)configureWithAccount:(double)account
                        value:(double)value

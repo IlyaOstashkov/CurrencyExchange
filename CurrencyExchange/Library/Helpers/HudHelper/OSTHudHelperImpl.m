@@ -72,7 +72,8 @@
         {
             _currentHUD.mode = MBProgressHUDModeText;
             _currentHUD.backgroundView.style = MBProgressHUDBackgroundStyleSolidColor;
-            _currentHUD.backgroundView.color = [UIColor colorWithWhite:0.f alpha:.2f];
+            _currentHUD.backgroundView.color = [UIColor colorWithWhite:0.f
+                                                                 alpha:.2f];
             [_currentHUD hideAnimated:YES
                            afterDelay:hideAfterDelay];
             break;
@@ -85,6 +86,9 @@
                            afterDelay:hideAfterDelay];
             break;
         }
+            
+        default:
+            break;
     }
 }
 

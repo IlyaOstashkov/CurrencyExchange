@@ -7,6 +7,9 @@
 
 @property (strong, nonatomic, readonly) NSArray *list;
 
+/**
+ Get exchange rate from list with currency
+ */
 - (OSTExchangeRate *)getExchangeRateWithCurrency:(OSTCurrency)currency;
 
 @end

@@ -34,6 +34,7 @@ NSString * const kOSTUrlExchangeRates = @"http://www.ecb.europa.eu/stats/eurofxr
                 id  _Nullable responseObject)
      {
          NSError *error;
+         // I use Mantle to serialize response to model
          OSTExchangeRateList *rateList = [MXEXmlAdapter modelOfClass:[OSTExchangeRateList class]
                                                          fromXmlData:responseObject
                                                                error:&error];

@@ -14,10 +14,8 @@
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // window initialization here (not in Typhoon assembly) because it depends on orientation changing
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = self.rootViewController;
-    self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
     [self setupUserAccountsIfNeeded];
@@ -29,6 +27,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 
 - (void)setupUserAccountsIfNeeded
 {
+    // set default values for user accounts
     [self setupUserAccountWithKey:kOSTSecureKeyEurAccount
                         withValue:100.f];
     [self setupUserAccountWithKey:kOSTSecureKeyUsdAccount

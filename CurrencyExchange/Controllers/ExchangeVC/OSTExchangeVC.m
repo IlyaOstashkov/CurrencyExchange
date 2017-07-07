@@ -10,6 +10,7 @@
 // views
 #import "OSTExchangeCollectionViewCell.h"
 
+// constants
 NSUInteger const kOSTRequestPerSeconds = 30;
 NSUInteger const kOSTColletionViewPagesCount = 198;
 double const kOSTDefaultValueToExchange = 10;

@@ -3,6 +3,7 @@
 // models
 #import "OSTExchangeRate.h"
 
+// constants
 NSString * const kOSTPrefixPlus = @"+ ";
 NSString * const kOSTPrefixMinus = @"- ";
 
@@ -31,8 +32,7 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    _valueTextField.delegate = self;
-    [self setupTapGestureRecognizer];
+    [self defaultSetup];
 }
 
 - (void)dealloc
@@ -55,8 +55,10 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
     self.valueChangedCompletion = valueChangedCompletion;
     self.isShowPlusPrefix = additionalRate ? YES : NO;
     
+    // configure currency label
     _currencyLabel.text = [mainRate.currencyString uppercaseString];
     
+    // configure account label
     NSString *accountFormat = [NSString stringWithFormat:@"You have %@",
                                [self formatWithValue:account]];
     _accountLabel.text = [NSString stringWithFormat:accountFormat,
@@ -68,12 +70,14 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
         [self animateAccountLabel];
     }
     
+    // configure value text field
     _valueTextField.enabled = isShowValue;
     NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
     NSString *valueFormat = [self formatWithValue:value];
     _valueTextField.text = [NSString stringWithFormat:valueFormat,
                             valuePrefix, value];
     
+    // configure help label
     double mainRateDouble = [mainRate.rate doubleValue];
     if (additionalRate &&
         mainRateDouble != 0)
@@ -98,8 +102,15 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
 
 #pragma mark - Setup methods -
 
+- (void)defaultSetup
+{
+    _valueTextField.delegate = self;
+    [self setupTapGestureRecognizer];
+}
+
 - (void)setupTapGestureRecognizer
 {
+    // tap gesture recognizer to hide keyboard
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                            action:@selector(handleTapFrom:)];
     tapGestureRecognizer.cancelsTouchesInView = NO;
@@ -139,8 +150,8 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
 
 #pragma mark - Work with strings -
 
-- (BOOL)checkDecimalInString:(NSString *)string
-               withSeparator:(NSString *)separator
+- (BOOL)checkValueDecimalPartWithString:(NSString *)string
+                          withSeparator:(NSString *)separator
 {
     if ([string containsString:separator])
     {
@@ -191,8 +202,10 @@ replacementString:(NSString *)string
         return NO;
     }
     
-    if (![self checkDecimalInString:newStringWithoutPrefix withSeparator:kOSTDot] ||
-        ![self checkDecimalInString:newStringWithoutPrefix withSeparator:kOSTComma]) {
+    if (![self checkValueDecimalPartWithString:newStringWithoutPrefix
+                                 withSeparator:kOSTDot] ||
+        ![self checkValueDecimalPartWithString:newStringWithoutPrefix
+                                 withSeparator:kOSTComma]) {
         return NO;
     }
     

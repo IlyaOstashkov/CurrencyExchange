@@ -7,6 +7,9 @@ typedef NS_ENUM(NSInteger, OSTHudType) {
     OSTHudTypeBlock
 };
 
+/**
+ It helps to show and hide huds
+ */
 @protocol OSTHudHelper <NSObject>
 
 /**

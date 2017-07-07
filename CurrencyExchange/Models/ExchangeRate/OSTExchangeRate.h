@@ -41,7 +41,14 @@ typedef NS_ENUM(NSUInteger, OSTCurrency)
 @property (strong, nonatomic) NSString *currencyString;
 @property (strong, nonatomic) NSNumber *rate;
 
+/**
+ Get OSTCurrency enum value
+ */
 - (OSTCurrency)currency;
+
+/**
+ Get currency symbol (For example $)
+ */
 - (NSString *)currencySymbol;
 
 @end
