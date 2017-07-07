@@ -72,10 +72,7 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
     
     // configure value text field
     _valueTextField.enabled = isShowValue;
-    NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
-    NSString *valueFormat = [self formatWithValue:value];
-    _valueTextField.text = [NSString stringWithFormat:valueFormat,
-                            valuePrefix, value];
+    [self refreshValueTextFieldWithValue:value];
     
     // configure help label
     double mainRateDouble = [mainRate.rate doubleValue];
@@ -98,6 +95,14 @@ NSUInteger const kOSTMaxValueSymbolsCount = 6;
          _valueTextField.alpha = isShowValue ? 1.f : 0;
          _helpLabel.alpha = additionalRate ? .7f : 0;
      }];
+}
+
+- (void)refreshValueTextFieldWithValue:(double)value
+{
+    NSString *valuePrefix = _isShowPlusPrefix ? kOSTPrefixPlus : kOSTPrefixMinus;
+    NSString *valueFormat = [self formatWithValue:value];
+    _valueTextField.text = [NSString stringWithFormat:valueFormat,
+                            valuePrefix, value];
 }
 
 #pragma mark - Setup methods -
@@ -239,9 +244,7 @@ replacementString:(NSString *)string
     
     // additional text formatting
     NSString *stringWithoutPrefix = [text substringFromIndex:kOSTPrefixPlus.length];
-    double value = [stringWithoutPrefix doubleValue];
-    NSString *valueFormat = [self formatWithValue:value];
-    textField.text = [NSString stringWithFormat:valueFormat, valuePrefix, value];
+    [self refreshValueTextFieldWithValue:[stringWithoutPrefix doubleValue]];
     
     if (_valueChangedCompletion) {
         _valueChangedCompletion([stringWithoutPrefix doubleValue]);

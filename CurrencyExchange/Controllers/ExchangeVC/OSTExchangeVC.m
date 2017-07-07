@@ -17,6 +17,7 @@ double const kOSTDefaultValueToExchange = 10;
 
 @interface OSTExchangeVC () <UICollectionViewDelegate, UICollectionViewDataSource>
 
+// UI outlets
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UILabel *rateLabel;
 @property (weak, nonatomic) IBOutlet UIButton *exchangeButton;
@@ -31,9 +32,9 @@ double const kOSTDefaultValueToExchange = 10;
 @property (nonatomic) NSUInteger requestTimeCounter;
 @property (nonatomic) BOOL canRefreshColletionViews;
 
+// selected values
 @property (strong, nonatomic) NSNumber *selectedFromValue;
 @property (strong, nonatomic) OSTExchangeRate *selectedFromRate;
-
 @property (strong, nonatomic) NSNumber *selectedToValue;
 @property (strong, nonatomic) OSTExchangeRate *selectedToRate;
 
@@ -47,8 +48,6 @@ double const kOSTDefaultValueToExchange = 10;
 {
     [super viewDidLoad];
     [self defaultSetup];
-    [self refreshRateLabel];
-    [self refreshExchangeButton];
     [self requestExchangeRateArrayIsFirstTime:YES];
 }
 
@@ -66,11 +65,14 @@ double const kOSTDefaultValueToExchange = 10;
                            @(OSTCurrencyUSD),
                            @(OSTCurrencyGBP)];
     [self setupRateLabel];
-    [self setupContentViewIsReadyForExchange:NO];
     [self setupCollectionView:_firstCollectionView];
     [self setupCollectionView:_secondCollectionView];
     self.canRefreshColletionViews = YES;
     [self setupTapGestureRecognizer];
+    
+    [self refreshContentViewVisibilityIsReadyForExchange:NO];
+    [self refreshRateLabel];
+    [self refreshExchangeButton];
 }
 
 - (void)setupRateLabel
@@ -92,18 +94,9 @@ double const kOSTDefaultValueToExchange = 10;
     
     // have to match currencyArray.firstObject
     NSUInteger index = kOSTColletionViewPagesCount / 2;
-    // scroll to the middle
+    // scroll to the middle of pages
     [self scrollCollectionView:collectionView
                        toIndex:index];
-}
-
-- (void)setupContentViewIsReadyForExchange:(BOOL)isReady
-{
-    _exchangeButton.hidden = !isReady;
-    _firstCollectionView.hidden = !isReady;
-    _firstPageControl.hidden = !isReady;
-    _secondCollectionView.hidden = !isReady;
-    _secondPageControl.hidden = !isReady;
 }
 
 - (void)scrollCollectionView:(UICollectionView *)collectionView
@@ -116,17 +109,18 @@ double const kOSTDefaultValueToExchange = 10;
                                    animated:NO];
 }
 
-- (NSUInteger)exchangeRateArrayIndexForRow:(NSUInteger)row
-{
-    return row % _exchangeRateArray.count;
-}
-
 - (void)setupTapGestureRecognizer
 {
+    // tap gesture recognizer to hide keyboard
     UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                            action:@selector(handleTapFrom:)];
     tapGestureRecognizer.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tapGestureRecognizer];
+}
+
+- (NSUInteger)exchangeRateArrayIndexForRow:(NSUInteger)row
+{
+    return row % _exchangeRateArray.count;
 }
 
 - (void)clearDelegateForCollectionView:(UICollectionView *)collectionView
@@ -150,7 +144,7 @@ double const kOSTDefaultValueToExchange = 10;
 {
     double fromRate = [_selectedFromRate.rate doubleValue];
     double toRate = [_selectedToRate.rate doubleValue];
-    if (isDirectExchange)
+    if (isDirectExchange) // from first currency to second
     {
         double fromValue = [_selectedFromValue doubleValue];
         double toValue = toRate * fromValue / fromRate;
@@ -170,6 +164,15 @@ double const kOSTDefaultValueToExchange = 10;
 - (void)refreshExchangeButton
 {
     _exchangeButton.alpha = [self isExchangeAvailable] ? 1.f : .7f;
+}
+
+- (void)refreshContentViewVisibilityIsReadyForExchange:(BOOL)isReady
+{
+    _exchangeButton.hidden = !isReady;
+    _firstCollectionView.hidden = !isReady;
+    _firstPageControl.hidden = !isReady;
+    _secondCollectionView.hidden = !isReady;
+    _secondPageControl.hidden = !isReady;
 }
 
 - (void)refreshRateLabel
@@ -192,6 +195,7 @@ double const kOSTDefaultValueToExchange = 10;
                            rate];
     }
     
+    // some animations
     [UIView animateWithDuration:0.2
                      animations:^{
          _rateLabel.alpha = !isEqualCurrencies ? 1.f : 0;
@@ -241,7 +245,6 @@ double const kOSTDefaultValueToExchange = 10;
          }
          else
          {
-             [self setupContentViewIsReadyForExchange:YES];
              [self prepareExchangeRateArrayWithResponse:response];
              if (isFirstTime)
              {
@@ -249,6 +252,7 @@ double const kOSTDefaultValueToExchange = 10;
                  self.selectedFromValue = @(kOSTDefaultValueToExchange);
                  self.selectedToRate = _selectedFromRate;
              }
+             [self refreshContentViewVisibilityIsReadyForExchange:YES];
              [self refreshContentViewWithDirectExchange:YES];
          }
      }];
@@ -323,26 +327,34 @@ double const kOSTDefaultValueToExchange = 10;
 - (IBAction)exchangeButtonPressed:(UIButton *)sender
 {
     if ([self isEqualCurrencies]) {
-        [_hudHelper showWithMessage:@"Select the currency to exchange"
+        [_hudHelper showWithMessage:@"Select another currency to exchange"
                                type:OSTHudTypeMessage];
         return;
     }
     
     if (![self isEnoughMoney]) {
-        [_hudHelper showWithMessage:@"You do not have enough money to exchange"
+        [_hudHelper showWithMessage:@"You don't have enough money to exchange"
                                type:OSTHudTypeMessage];
         return;
     }
     
+    // spend money of the first currency
     OSTCurrency fromCurrency = [_selectedFromRate currency];
     double fromAccount = [self getUserAccountWithCurrency:fromCurrency];
     fromAccount = fromAccount - [_selectedFromValue doubleValue];
+    // save to Keychain new value
     [self saveUserAccount:fromAccount
               forCurrency:fromCurrency];
+    /**
+     Also I can use database like Realm or CoreData 
+     to store user accounts if needed.
+     */
     
+    // get the money of the second currency
     OSTCurrency toCurrency = [_selectedToRate currency];
     double toAccount = [self getUserAccountWithCurrency:toCurrency];
     toAccount = toAccount + [_selectedToValue doubleValue];
+    // save to Keychain new value
     [self saveUserAccount:toAccount
               forCurrency:toCurrency];
     
@@ -456,19 +468,22 @@ double const kOSTDefaultValueToExchange = 10;
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    NSInteger currentIndex = scrollView.contentOffset.x / scrollView.frame.size.width + 0.5;
-    currentIndex = [self exchangeRateArrayIndexForRow:currentIndex];
+    // calculate current page index
+    NSInteger currentPageIndex = scrollView.contentOffset.x / scrollView.frame.size.width + 0.5;
+    currentPageIndex = [self exchangeRateArrayIndexForRow:currentPageIndex];
+    
     if (scrollView == _firstCollectionView)
     {
-        _firstPageControl.currentPage = currentIndex;
-        self.selectedFromRate = _exchangeRateArray[currentIndex];
+        // setup page control
+        _firstPageControl.currentPage = currentPageIndex;
+        // default values
+        self.selectedFromRate = _exchangeRateArray[currentPageIndex];
         self.selectedFromValue = @(kOSTDefaultValueToExchange);
     }
     else if (scrollView == _secondCollectionView)
     {
-        _secondPageControl.currentPage = currentIndex;
-        self.selectedToRate = _exchangeRateArray[currentIndex];
-        self.selectedToValue = @(kOSTDefaultValueToExchange);
+        _secondPageControl.currentPage = currentPageIndex;
+        self.selectedToRate = _exchangeRateArray[currentPageIndex];
     }
     [self refreshContentViewWithDirectExchange:YES];
 }
